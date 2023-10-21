@@ -1,9 +1,12 @@
 import React from 'react'
 import Node from '../../components/user/Node';
-import Avatar0 from '../../assets/logo.png'
 import Avatar00 from '../../assets/avatar12.png'
+
+import { useSelector } from 'react-redux';
 const Dashboard = () => {
     
+    const { userInfo } = useSelector((state)=>state.auth);
+
     return (
     <div className='dark:text-white w-full'>
         <div className='h-32 bg-slate-700 rounded-xl'>
@@ -12,7 +15,7 @@ const Dashboard = () => {
                     <div className='pt-4 px-4 text-4xl font-bold text-cyan-400'>CYCLE 1</div>
                     <div className='p-4 text-lg font-semibold text-cyan-400'>Invite just 2 friends and get reward $250</div>
                 </div>
-                <button className='w-52 h-20 my-auto mr-8 ml-auto rounded-xl text-4xl font-bold bg-cyan-400 hover:bg-cyan-500'>START</button>
+                <button className='w-52 h-20 my-auto mr-8 ml-auto rounded-xl text-4xl font-bold bg-cyan-500 hover:text-white text-slate-200'>START</button>
             </div>
 
             {/* <div className="relative">
@@ -25,7 +28,7 @@ const Dashboard = () => {
 
         <div >
             <div className='w-full '>
-                <Node avatar={Avatar00} username={'User'} email={'larans7277@gmail.com'} active={true}/>
+                <Node avatar={Avatar00} username={userInfo.username} email={userInfo.email} active={true}/>
             </div>
             <div className=' grid grid-cols-2'>
                 <div className=' col-span-1'>

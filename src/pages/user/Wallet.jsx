@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import { FaHistory } from 'react-icons/fa'
-import { Tooltip } from 'flowbite-react';
-
+// import { Tooltip } from 'flowbite-react';
+import { Tooltip, Button, Typography } from '@material-tailwind/react';
 const Wallet = () => {
     const [isActive, setIsActive] = useState(true);
 
@@ -175,10 +175,18 @@ const Wallet = () => {
 
             </div>
             <div className='flex mt-32'>
-                 <button className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-400 hover:bg-cyan-500 rounded-xl text-3xl font-bold'>PAY NOW</button>
+                 <button className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>PAY NOW</button>
                 <div className='mt-14 mr-auto'>
-                    <Tooltip content="Deposit History" placement="right" animation="duration-150" arrow={false} style="dark">
-                        <FaHistory className=' w-9 h-9 text-slate-400 hover:text-slate-100 hover:cursor-pointer' />
+                    <Tooltip content="Deposit History" placement="right">
+                        <svg
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                        className='w-10 h-10 font-bold text-lg hover:cursor-pointer'
+                        >
+                        <path d="M8.515 1.019A7 7 0 008 1V0a8 8 0 01.589.022l-.074.997zm2.004.45a7.003 7.003 0 00-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 00-.439-.27l.493-.87a8.025 8.025 0 01.979.654l-.615.789a6.996 6.996 0 00-.418-.302zm1.834 1.79a6.99 6.99 0 00-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 00-.214-.468l.893-.45a7.976 7.976 0 01.45 1.088l-.95.313a7.023 7.023 0 00-.179-.483zm.53 2.507a6.991 6.991 0 00-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 01-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 01-.401.432l-.707-.707z" />
+                        <path d="M8 1a7 7 0 104.95 11.95l.707.707A8.001 8.001 0 118 0v1z" />
+                        <path d="M7.5 3a.5.5 0 01.5.5v5.21l3.248 1.856a.5.5 0 01-.496.868l-3.5-2A.5.5 0 017 9V3.5a.5.5 0 01.5-.5z" />
+                        </svg>
                     </Tooltip>
                 </div>
             </div>
@@ -187,8 +195,8 @@ const Wallet = () => {
         <div className={`${isActive?'hidden':''}`}>
             <div className='w-[80%] mx-auto mt-24'>
                 <div className='flex px-4'>
-                    <label htmlFor='depositAmount' className='w-[20%] text-md font-mono my-auto'>Withdraw Amount </label>
-                    <input type='text' id='depositAmount' placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold '></input>                
+                    <label htmlFor='withdrawAmount' className='w-[20%] text-md font-mono my-auto'>Withdraw Amount </label>
+                    <input type='text' id='withdrawAmount' placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold '></input>                
                 </div>
                 <div className='flex px-4 mt-10'>
                     <div className='flex w-[20%] mr-1'>
@@ -261,10 +269,18 @@ const Wallet = () => {
 
             </div>
             <div className='flex mt-32'>
-                <button className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-400 hover:bg-cyan-500 rounded-xl text-3xl font-bold'>Withdraw</button>
+                <button className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>Withdraw</button>
                 <div className='mt-14 mr-auto'>
-                    <Tooltip content="Withdraw History" placement="right" animation="duration-150" arrow={false} style="dark">
-                        <FaHistory className=' w-9 h-9 text-slate-400 hover:text-slate-100 hover:cursor-pointer' />
+                    <Tooltip content="Deposit History" placement="right">
+                        <svg
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                        className='w-10 h-10 font-bold text-lg hover:cursor-pointer'
+                        >
+                        <path d="M8.515 1.019A7 7 0 008 1V0a8 8 0 01.589.022l-.074.997zm2.004.45a7.003 7.003 0 00-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 00-.439-.27l.493-.87a8.025 8.025 0 01.979.654l-.615.789a6.996 6.996 0 00-.418-.302zm1.834 1.79a6.99 6.99 0 00-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 00-.214-.468l.893-.45a7.976 7.976 0 01.45 1.088l-.95.313a7.023 7.023 0 00-.179-.483zm.53 2.507a6.991 6.991 0 00-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 01-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 01-.401.432l-.707-.707z" />
+                        <path d="M8 1a7 7 0 104.95 11.95l.707.707A8.001 8.001 0 118 0v1z" />
+                        <path d="M7.5 3a.5.5 0 01.5.5v5.21l3.248 1.856a.5.5 0 01-.496.868l-3.5-2A.5.5 0 017 9V3.5a.5.5 0 01.5-.5z" />
+                        </svg>
                     </Tooltip>
                 </div>
             </div>

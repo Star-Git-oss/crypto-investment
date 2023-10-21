@@ -5,23 +5,24 @@ import { FaWallet } from 'react-icons/fa'
 import { SiLevelsdotfyi } from 'react-icons/si'
 import { AiFillSetting } from 'react-icons/ai'
 import { TbBinaryTree } from 'react-icons/tb'
-import { BiLogOut } from 'react-icons/bi'
-import { MdHelpCenter } from 'react-icons/md'
+import { useSelector } from 'react-redux'
+
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
 import Avatar from '../../assets/avatar13.png'
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true)
-  const [mobileMenu, setMobileMenu] = useState(false)
-  const location = useLocation()
+
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const location = useLocation();
+  const { userInfo } = useSelector((state) => state.auth);
 
   const Menus = [
     { title: 'Network', path: '/dashboard', src: <TbBinaryTree /> },
     { title: 'Cycle', path: '/cycle', src: <SiLevelsdotfyi /> },
     { title: 'Wallet', path: '/wallet', src: <FaWallet /> },
     { title: 'Profile', path: '/profile', src: <AiFillSetting /> },
-    { title: 'Help Center', path: '/help', src: <MdHelpCenter /> },
-    { title: 'Logout', path: '/logout', src: <BiLogOut />, gap: 'true' },
+    // { title: 'Help Center', path: '/help', src: <MdHelpCenter /> },
+    // { title: 'Logout', path: '/logout', src: <BiLogOut />, gap: 'true' },
   ]
 
 
@@ -38,20 +39,20 @@ const Sidebar = () => {
                         className="w-28 h-full rounded-full max-w-sm mx-auto lg:mx-0 opacity-70 blur-lg bg-gradient-to-r from-yellow-400 via-pink-500 to-red-600">
                     </div>
                 </div>
-
-                <img  src={Avatar}  className="relative w-28 ml-auto mr-auto rounded-full shadow-sm shadow-pink-800" alt="Avatar"/>
+                {userInfo.avatar?<img  src={userInfo.avatar}  className="relative w-28 h-28 ml-auto mr-auto rounded-full opacity-95 hover:cursor-pointer hover:scale-110 z-10" alt="Avatar"/>:<img  src={Avatar}  className="relative w-28 h-28 ml-auto mr-auto rounded-full opacity-95 hover:cursor-pointer hover:scale-110 z-10" alt="Avatar"/>}
+                {/* <img  src={Avatar}  className="relative w-28 ml-auto mr-auto rounded-full shadow-sm shadow-pink-800" alt="Avatar"/> */}
 
             </div>
 
             <p className="text-2xl font-bold text-white">
-                Jonas
+                {userInfo.username}
             </p>
 
             <div className="text-gray-400 font-serif">
-                larans7277@gmail.com
+                {userInfo.email}
             </div>
             <div className="text-cyan-400 font-mono mt-2 ">
-                <span className='text-gray-400 font-bold'>Balance </span>$290.45USD
+                <span className='text-gray-400 font-bold'>Balance </span>${userInfo.balance} <span className='text-slate-400 font-mono'>USD</span>
             </div>
 
           </div>

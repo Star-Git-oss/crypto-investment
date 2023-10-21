@@ -8,10 +8,19 @@ import QRCode from 'react-qr-code'
 import 'react-toastify/dist/ReactToastify.css'
 import './navbar.css'
 
+import { useSelector } from 'react-redux'
+
 const Navbar = () => {
 
-  const myLink = 'di45bu';
   const [isQROpen, setIsQROpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { userInfo } = useSelector((state)=> state.auth);
+  const myLink = userInfo.mylink;
+
+  const handleAlertClick = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   const openQR = () => {
     setIsQROpen(true);
   };
@@ -47,8 +56,8 @@ const Navbar = () => {
           </section> */}
           {/* <div className=' text-xl text-cyan-300 whitespace-nowrap mr-8'>Invite your friends with referal link </div> */}
           <input type='text' placeholder='Referral Code : ' className=' text-gray-900 text-sm rounded-lg w-[240px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
-          <label className="absolute right-20 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-gray-200 cursor-text">{myLink}</label>
-          <button className="absolute right-8 top-0 px-1 bottom-0  rounded-r-lg text-gray-300 hover:text-white" onClick={copyLink}>
+          <label className="absolute right-16 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text"> {myLink}</label>
+          <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyLink}>
             <svg
               viewBox="0 0 24 24"
               className='w-5 '
@@ -58,7 +67,7 @@ const Navbar = () => {
               <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1.001 1.001 0 013 21l.003-14c0-.552.45-1 1.007-1H7zM5.003 8L5 20h10V8H5.003zM9 6h8v10h2V4H9v2z" />
             </svg>
           </button>
-          <button className="absolute right-0 px-1 mr-2 top-0 bottom-0 rounded-r-lg text-gray-300 hover:text-white" onClick={openQR}>
+          {/* <button className="absolute right-0 px-1 mr-2 top-0 bottom-0 rounded-r-lg text-gray-300 hover:text-white" onClick={openQR}>
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -66,7 +75,7 @@ const Navbar = () => {
             >
               <path d="M3 11h8V3H3zm2-6h4v4H5zM3 21h8v-8H3zm2-6h4v4H5zm8-12v8h8V3zm6 6h-4V5h4zm-5.99 4h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm4 0h2v2h-2zm2 2h2v2h-2zm-4 0h2v2h-2zm2-6h2v2h-2zm2 2h2v2h-2z" />
             </svg>
-          </button>
+          </button> */}
         </div>
           
         <div className="relative inline-flex w-fit">
@@ -75,9 +84,15 @@ const Navbar = () => {
             New
           </div>
           <div
-            className="flex items-center justify-center rounded-lg text-center text-white shadow-lg dark:text-gray-200">
-             <HiBellAlert className='w-8 h-8 text-slate-400'/>
+            className="flex items-center justify-center rounded-lg text-center text-white shadow-lg dark:text-gray-200 " onClick={handleAlertClick}>
+             <HiBellAlert className='w-8 h-8 text-slate-400 hover:cursor-pointer hover:text-slate-200'/>
           </div>
+          {isDropdownOpen && (
+            <div className="absolute top-10 right-0 w-44 p-2 rounded-lg bg-slate-700 shadow-md text-cyan-400 space-y-2">
+                <div>Cycle1 completed</div>
+                <div>User1 Added</div>
+            </div>
+          )}
         </div>
         {isQROpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50">

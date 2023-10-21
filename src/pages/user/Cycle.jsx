@@ -13,7 +13,7 @@ const Cycle = () => {
                     <div className='pt-4 px-4 text-4xl font-bold text-cyan-400'>CYCLE 1</div>
                     <div className='p-4 text-lg font-semibold text-cyan-400'>Invite just 2 friends and get reward $250</div>
                 </div>
-                <button className='w-52 h-20 my-auto mr-8 ml-auto rounded-xl text-4xl font-bold bg-cyan-400 hover:bg-cyan-500'>BUY</button>
+                <button className='w-52 h-20 my-auto mr-8 ml-auto rounded-xl text-4xl font-bold bg-cyan-500 hover:text-white text-slate-200'>BUY</button>
             </div>
 
             {/* <div className="relative">

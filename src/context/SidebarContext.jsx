@@ -6,7 +6,6 @@ const AppProvider = ({ children }) => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isSignupOpen, setSignupOpen] = useState(false);
 	const [isLogout, setLogout] = useState(false);
-	const [isLoad, setLoad] = useState(true);
 
 	const openSidebar = () => {
 		setIsSidebarOpen(true);

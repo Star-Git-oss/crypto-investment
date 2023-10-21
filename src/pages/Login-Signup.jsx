@@ -22,9 +22,6 @@ const Login_Signup = () => {
 	const [register, { isLoading }] = useRegisterMutation();
 	const [login, { isLoadings}] = useLoginMutation();
 
-
-	const { userInfo } = useSelector((state) => state.auth);
-
 	const [myemail, setMyemail] = useState(localStorage.getItem("myapp-email") || "");
 	const [mypassword, setMypassword] = useState(localStorage.getItem("myapp-password") || "");
 	const [mynote, setMynote] = useState('');
@@ -35,9 +32,10 @@ const Login_Signup = () => {
 	const [passnote, setPassNote] = useState('');
 	const [email, setEmail] = useState('');
 	const [code, setCode] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirm_password, setPassConfirm] = useState('');
-	const [referal_link, setReferalLink] = useState(invId || "");
+	const [referral_link, setReferalLink] = useState(invId || "");
 
 	const [isForgotPassword, setForgot] = useState(false);
 	const [forgot_note, setForgotNote] = useState('');
@@ -53,6 +51,7 @@ const Login_Signup = () => {
 		  setEmail('');
 		  setPassword('');
 		  setPassConfirm('');
+		  setUsername('');
 		//   setReferalLink('');
 		  setCode('');
 		  setNote('');
@@ -69,6 +68,7 @@ const Login_Signup = () => {
 		  setEmail('');
 		  setPassword('');
 		  setPassConfirm('');
+		  setUsername('');
 		//   setReferalLink('');
 		  setCode('');
 		  setNote('');
@@ -92,11 +92,11 @@ const Login_Signup = () => {
 
 	const handleLoginClick = async (e) =>{
 		e.preventDefault();
+
 		if(!validateEmail(myemail)) {
 			setMynote('Invalid Email');
 			return;
 		} else setMynote('');
-		console.log('Email : ' + myemail + ', Password : '+mypassword);
 
 		try {
 			
@@ -104,13 +104,14 @@ const Login_Signup = () => {
 			const password = mypassword;
 			const res = await login({ email, password }).unwrap();
 			dispatch(setCredentials({ ...res }));
+			console.log(res);
 			navigate('/');
 			toast.success('Logged in Successfully!', {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
 			remember();
 			closeSidebar();
 		  } catch (err) {
-			toast.error(err?.data?.message || err.error, {autoClose: 3000, theme: "dark",});
-		  }
+			toast.error(err?.data?.message || err.error, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+	    }
 	}
 
 	const handleSendCodeClick = () => {
@@ -138,6 +139,15 @@ const Login_Signup = () => {
 		}
 	}
 
+	function generateReferralLink() {
+		var letters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		var referralLink = '';
+		for (var i = 0; i < 8; i++) {
+		  referralLink += letters.charAt(Math.floor(Math.random() * letters.length));
+		}
+		return referralLink;
+	  }
+
 	const handleSignupClick = async (event) => {
 		event.preventDefault();
 
@@ -156,17 +166,19 @@ const Login_Signup = () => {
 		}
 
 		try {
-			const res = await register({ email, code, password, referal_link }).unwrap();
+			const mylink = generateReferralLink();
+
+			const res = await register({ username, email, code, password, referral_link, mylink }).unwrap();
 			// dispatch(setCredentials({ ...res }));
 			navigate('/');
 			toast.success('Registered Successfully!', {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
 			openSidebar();
 		} catch (err) {
-			toast.error(err?.data?.message || err.error, {autoClose: 3000, theme: "dark",});
+			toast.error(err?.data?.message || err.error, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
 			// setNote('');
 		}
 
-		console.log('Email : '+ email + ', Verification Code : '+ code +', Password : '+ password +', Confirm Password : '+confirm_password+', Referal LinkL : '+referal_link);
+		// console.log('Email : '+ email + ', Verification Code : '+ code +', Password : '+ password +', Confirm Password : '+confirm_password+', Referal Link : '+referral_link+', My Link : '+mylink);
 	}
 	  
 	const handleForgotSendCodeClick = () => {
@@ -292,6 +304,10 @@ const Login_Signup = () => {
 							<form className={` ${isSignupOpen? '' : 'hidden'}`} onSubmit={handleSignupClick}>
 								<h2 className='text-4xl dark:text-white font-bold text-center'>SIGN UP</h2>
 								<div className='flex flex-col text-gray-400 py-2'>
+									<label>User Name</label>
+									<input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' value={username} onChange={(e)=>setUsername(e.target.value)} type="text" required/>
+								</div>
+								<div className='flex flex-col text-gray-400 py-2'>
 									<label>Email</label>
 									<div className='grid grid-cols-6'>
 										<input className='rounded-lg col-span-5 bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' value={email} onChange={(e) => {setEmail(e.target.value); setNote(''); setCode('');}} type="text" required/>
@@ -319,7 +335,7 @@ const Login_Signup = () => {
 								</div>
 								<div className='flex flex-col text-gray-400 py-2'>
 									<label>Referral Code (Optional)</label>
-									<input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' value={referal_link} onChange={(e)=>setReferalLink(e.target.value)} type="text" />
+									<input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' value={referral_link} onChange={(e)=>setReferalLink(e.target.value)} type="text" />
 								</div>
 								<button className='py-2 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none mt-6 w-full hover:shadow-sm hover:shadow-white active:translate-y-1'>Sign Up</button>
 								<div className='flex justify-between text-gray-400 py-2 mt-4'>

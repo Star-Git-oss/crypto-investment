@@ -25,7 +25,7 @@ const Navbar = () => {
       } catch (error) {
         // Handle any errors that occur during the request
         console.error(error.message);
-      }
+      };
     };
 
     // Call the fetchData function when the component mounts
