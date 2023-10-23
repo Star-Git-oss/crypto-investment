@@ -144,8 +144,8 @@ const Profile = () => {
 
     return (
     <div className='dark:text-white'>
-        <div className='w-[60%] mx-auto mt-10'>
-            <div className="relative my-4">
+        <div className='sm:w-[60%] xs:w-[60%] w-full mx-auto mt-16'>
+            <div className="relative">
                 <input
                     ref={inputFileRef}
                     accept="image/*"
@@ -164,7 +164,7 @@ const Profile = () => {
                 </label>
             </div>
             <ToastContainer />
-            <div className='mt-16 space-y-6'>
+            <div className='mt-8 space-y-4'>
                 <div className='flex px-4'>
                     <label htmlFor='username' className='w-[40%] text-md font-mono my-auto'>User Name *</label>
                     <input type='text' id='username' placeholder='username' value={username} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold' onChange={handleUsername} required></input>                
@@ -186,7 +186,7 @@ const Profile = () => {
                     <input type='password' id='confirmPassword' placeholder='password' value={confirmPassword} onChange={handleConfirmPassword} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold'></input>                
                 </div>
             </div>
-            <div className='mt-16 flex'>
+            <div className='mt-12 flex'>
               {isUpdate?<button className='w-44 text-center mx-auto p-2 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold' onClick={handleUpdateProfile}>UPDATE</button>
               : <button className='w-44 text-center mx-auto p-2 bg-slate-400 hover:text-white text-slate-200 rounded-xl text-3xl font-bold' onClick={()=>{return;}}>UPDATE</button>}
             </div>

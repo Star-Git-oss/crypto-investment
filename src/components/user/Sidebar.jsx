@@ -1,29 +1,50 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaWallet } from 'react-icons/fa'
 import { SiLevelsdotfyi } from 'react-icons/si'
 import { AiFillSetting } from 'react-icons/ai'
 import { TbBinaryTree } from 'react-icons/tb'
-import { useSelector } from 'react-redux'
+import { BiLogoTelegram } from 'react-icons/bi'
+import { BiLogOut } from 'react-icons/bi'
+import { useSelector, useDispatch } from 'react-redux'
 
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
 import Avatar from '../../assets/avatar13.png'
 
+import { useLogoutMutation } from '../../slices/usersApiSlice';
+import { logout } from '../../slices/authSlice';
 const Sidebar = () => {
 
   const [mobileMenu, setMobileMenu] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+
+  const [logoutApiCall] = useLogoutMutation();
+  const logoutHandler = async () => {
+    try {
+      const res = await logoutApiCall().unwrap();
+      navigate('/');
+      dispatch(logout());
+      console.log(res.message);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const Menus = [
     { title: 'Network', path: '/dashboard', src: <TbBinaryTree /> },
     { title: 'Cycle', path: '/cycle', src: <SiLevelsdotfyi /> },
     { title: 'Wallet', path: '/wallet', src: <FaWallet /> },
     { title: 'Profile', path: '/profile', src: <AiFillSetting /> },
-    // { title: 'Help Center', path: '/help', src: <MdHelpCenter /> },
+    // { title: 'Help Center', path: 'https://t.me/@Cloudwinnerscol', src: <BiLogoTelegram /> },
     // { title: 'Logout', path: '/logout', src: <BiLogOut />, gap: 'true' },
   ]
+
+  const help = () => {
+    window.open("https://t.me/Cloudwinnerscol", "_blank");
+  }
 
 
   return (
@@ -78,6 +99,29 @@ const Sidebar = () => {
               </li>
             </Link>
           ))}
+            <li
+              className="flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer text-white hover:bg-gray-700"
+              onClick={help}
+            >
+              <span className='text-2xl'><BiLogoTelegram /></span>
+              <span
+                className='origin-left duration-300 hover:block'
+              >
+                Help
+              </span>
+            </li>
+
+            <li
+              className="flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer text-white hover:bg-gray-700"
+              onClick={logoutHandler}
+            >
+              <span className='text-2xl'><BiLogOut /></span>
+              <span
+                className='origin-left duration-300 hover:block'
+              >
+                Sign Out
+              </span>
+            </li>
         </ul>
       </div>
       {/* Mobile Menu */}

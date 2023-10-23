@@ -5,11 +5,11 @@ const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here="
 
     return (
     <div className='dark:text-white'>
-        <div className={`${here=="dashboard"?"h-34":"h-44"} bg-slate-700 rounded-xl my-10 hover:scale-[102%]`}>
-            <div className="flex">
+        <div className="w-full bg-slate-700 rounded-xl my-10 hover:scale-[102%]">
+            <div className="flex p-4">
                 <div>
-                    <div className={`${here=="dashboard"?"pt-6":"pt-8"} px-8 text-4xl font-bold text-cyan-400`}>CYCLE {cycle}</div>
-                    <div className='p-8 text-xl font-semibold text-cyan-400'>
+                    <div className=" px-8 text-4xl font-bold text-cyan-400">CYCLE {cycle}</div>
+                    <div className='p-8 text-xl font-semibold text-cyan-400 hidden sm:block'>
                         {/* <div>
                             {state === 1 && cycle === 1 && 'Activate cycle and start $250 reward plan'}
                             {state === 1 && cycle === 2 && 'Activate cycle and start $275 reward plan'}

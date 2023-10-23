@@ -40,9 +40,10 @@ const Dashboard = () => {
 
       console.log(percentage);
     return (
-    <div className='dark:text-white w-full'>
-
-        <TaskBar cycle={userInfo.cycle} state={userInfo.state} percentage={percentage} getRewards={handleBar} getStarted={handleBar} here="dashboard" />
+    <div className='dark:text-whiteh-screen xs:w-full w-[80%]'>
+        <div className='mt-20'>
+            <TaskBar cycle={userInfo.cycle} state={userInfo.state} percentage={percentage} getRewards={handleBar} getStarted={handleBar} here="dashboard" />
+        </div>
         {
             nodes &&
             <div>

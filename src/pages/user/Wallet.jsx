@@ -79,8 +79,8 @@ const Wallet = () => {
 
       
     return (
-    <div className='dark:text-white'>
-        <div className='flex mt-10'>
+    <div className='dark:text-white '>
+        <div className='flex mt-16'>
             <button
             className={`w-[40%] p-2 rounded-l-lg font-semibold text-lg ${
                 isActive ? "bg-slate-700 shadow-md shadow-cyan-400" : "bg-slate-700 shadow-md shadow-black"
@@ -100,13 +100,13 @@ const Wallet = () => {
         </div>
         
         <div className={`${isActive?'':'hidden'}`}>
-            <div className='w-[80%] mx-auto mt-24'>
+            <div className='w-[80%] mx-auto mt-12'>
                 <div className='flex px-4'>
                     <label htmlFor='depositAmount' className='w-[20%] text-md font-mono my-auto'>Deposit Amount </label>
                     <input type='text' id='depositAmount' value={dAmount} onChange={handleChangeDeposit} placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold'></input>                
                 </div>
-                <div className='px-4 mt-16'>
-                    <div className="grid grid-cols-4 gap-2">
+                <div className='px-4 mt-12'>
+                    <div className="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-2 gap-2">
                         <label
                         className={`col-span-1 py-5 px-4 hover:bg-gray-900 hover:cursor-pointer rounded-2xl font-bold text-lg  ${
                             selectedToken === "USDT ERC20" ? "bg-gray-900 text-white border-2 border-cyan-400" : "bg-slate-700 shadow-md shadow-black"
@@ -163,9 +163,7 @@ const Wallet = () => {
                         />
                         USDC
                         </label>
-                    </div>
-                    <div className="grid grid-cols-4 mt-4 gap-2">
-                        <label
+                        {/* <label
                         className={`col-span-1 py-5 px-4 hover:bg-gray-900 hover:cursor-pointer rounded-2xl font-bold text-lg  ${
                             selectedToken === "BTC" ? "bg-gray-900 text-white border-2 border-cyan-400" : "bg-slate-700 shadow-md shadow-black"
                         }`}
@@ -220,12 +218,12 @@ const Wallet = () => {
                             style={{ marginRight: "0.5rem" }}
                         />
                         TRX
-                        </label>
+                        </label> */}
                     </div>
                 </div>
 
             </div>
-            <div className='flex mt-32'>
+            <div className='flex'>
                  <button onClick={handleSubmitDeposit} className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>PAY NOW</button>
                 <div className='mt-14 mr-auto'>
                     <Tooltip content="Deposit History" placement="right">
@@ -244,12 +242,12 @@ const Wallet = () => {
         </div>
 
         <div className={`${isActive?'hidden':''}`}>
-            <div className='w-[80%] mx-auto mt-24'>
+            <div className='w-[80%] mx-auto mt-8'>
                 <div className='flex px-4'>
                     <label htmlFor='withdrawAmount' className='w-[20%] text-md font-mono my-auto'>Withdraw Amount </label>
                     <input type='text' id='withdrawAmount' value={wAmount} onChange={handleChangeWithdraw} placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold '></input>                
                 </div>
-                <div className='flex px-4 mt-10'>
+                <div className='flex px-4 mt-4'>
                     <div className='flex w-[20%] mr-1'>
                         <button className=' bg-yellow-400 h-10 my-auto mr-auto hover:bg-yellow-500 rounded-md text-black px-1 font-bold font-mono text-sm'>Connect Wallet</button>
                     </div>
@@ -257,7 +255,7 @@ const Wallet = () => {
                 </div>
 
                 <div>
-                    <div className="grid grid-cols-4 mt-16 gap-2 px-4">
+                    <div className="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-2 mt-8 gap-2 px-4">
                         <label
                         className={`col-span-1 py-5 px-4 hover:bg-gray-900 hover:cursor-pointer rounded-2xl font-bold text-lg  ${
                             selectedToken === "USDT ERC20" ? "bg-gray-900 text-white border-2 border-cyan-400" : "bg-slate-700 shadow-md shadow-black"
@@ -319,8 +317,8 @@ const Wallet = () => {
                 </div>
 
             </div>
-            <div className='flex mt-32'>
-                <button onClick={handleSubmitWithdraw} className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>Withdraw</button>
+            <div className='flex'>
+                <button onClick={handleSubmitWithdraw} className='w-44 text-center mt-12 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>Withdraw</button>
                 <div className='mt-14 mr-auto'>
                     <Tooltip content="Withdraw History" placement="right">
                         <svg
