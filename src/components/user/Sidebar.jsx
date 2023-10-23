@@ -153,6 +153,12 @@ const Sidebar = () => {
               </span>
             </Link>
           ))}
+            <Link onClick={() => {setMobileMenu(false); help();}}>
+              <span>Help</span>
+            </Link>
+            <Link onClick={() => {setMobileMenu(false); logoutHandler();}}>
+              <span>Sign Out</span>
+            </Link>
         </div>
       </div>
     </>

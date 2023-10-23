@@ -52,7 +52,7 @@ const Navbar = () => {
         <ToastContainer />
         <Link to={'/'}>
           <div className='flex items-center justify-start pl-20'>
-            <img src={Logo} alt='logo' className='w-28'/>
+            <img src={Logo} alt='logo' className='w-28'/><span className='text-white ml-4  xs:hidden'>Code: {myLink}</span>
           </div>
         </Link>
 
@@ -111,7 +111,7 @@ const Navbar = () => {
           </button> */}
         </div>
           
-        <div className="relative inline-flex w-fit">
+        <div className="relative inline-flex w-fit ">
           <div
             className="absolute bottom-auto left-auto right-0 top-0 z-10 inline-block -translate-y-1/2 translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 whitespace-nowrap rounded-full bg-cyan-500 px-2.5 py-1 text-center align-baseline text-xs font-bold leading-none text-white animate-pulse">
             New
