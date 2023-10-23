@@ -1,9 +1,20 @@
 import React from 'react'
 import { useState } from 'react';
-import { FaHistory } from 'react-icons/fa'
-// import { Tooltip } from 'flowbite-react';
-import { Tooltip, Button, Typography } from '@material-tailwind/react';
+import axios from 'axios';
+import { Tooltip } from '@material-tailwind/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCredentials } from '../../slices/authSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import { configureStore } from '@reduxjs/toolkit';
+
 const Wallet = () => {
+
+    const { userInfo } = useSelector((state)=>state.auth);
+    const email = userInfo.email;
+
+    const dispatch = useDispatch();
+
     const [isActive, setIsActive] = useState(true);
 
     const handleClickDeposit = () => {
@@ -14,17 +25,57 @@ const Wallet = () => {
         setIsActive(!isActive);
       };
 
-    const [selectedButton, setSelectedButton] = useState(null);
-
-    const handleButtonClick = (buttonName) => {
-        setSelectedButton(buttonName);
-    };
-
     const [selectedToken, setSelectedToken] = useState("USDT ERC20");
 
     const handleTokenChange = (event) => {
       setSelectedToken(event.target.value);
     };
+
+    const [dAmount, setDamount] = useState();
+    const [wAmount, setWamount] = useState();
+
+    const handleChangeDeposit = (e) => {
+        e.preventDefault();
+        setDamount(e.target.value);
+    }
+
+    const handleChangeWithdraw = (e) => {
+        e.preventDefault();
+        setWamount(e.target.value);
+    }
+
+    const handleSubmitDeposit = (e) => {
+        e.preventDefault();
+
+        axios
+        .put("/api/balance/deposit", {email, dAmount})
+        .then( res => {
+            console.log(res.data);
+            dispatch(setCredentials({ ...res.data }));
+            toast.success("Successful Deposit!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            setDamount("");
+        })
+        .catch(err => {
+            // toast.error(res.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            toast.error(err.response.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+        });
+    }
+
+    const handleSubmitWithdraw = (e) => {
+        e.preventDefault();
+
+        axios
+        .put("/api/balance/withdraw", {email, wAmount})
+        .then( res => {
+            dispatch(setCredentials({ ...res.data }));
+            toast.success("Successful withdrawal!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            setWamount("");
+        })
+        .catch(err => {
+            // toast.error(res.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            toast.error(err.response.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+        });
+    }
 
       
     return (
@@ -52,7 +103,7 @@ const Wallet = () => {
             <div className='w-[80%] mx-auto mt-24'>
                 <div className='flex px-4'>
                     <label htmlFor='depositAmount' className='w-[20%] text-md font-mono my-auto'>Deposit Amount </label>
-                    <input type='text' id='depositAmount' placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold'></input>                
+                    <input type='text' id='depositAmount' value={dAmount} onChange={handleChangeDeposit} placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold'></input>                
                 </div>
                 <div className='px-4 mt-16'>
                     <div className="grid grid-cols-4 gap-2">
@@ -175,7 +226,7 @@ const Wallet = () => {
 
             </div>
             <div className='flex mt-32'>
-                 <button className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>PAY NOW</button>
+                 <button onClick={handleSubmitDeposit} className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>PAY NOW</button>
                 <div className='mt-14 mr-auto'>
                     <Tooltip content="Deposit History" placement="right">
                         <svg
@@ -196,7 +247,7 @@ const Wallet = () => {
             <div className='w-[80%] mx-auto mt-24'>
                 <div className='flex px-4'>
                     <label htmlFor='withdrawAmount' className='w-[20%] text-md font-mono my-auto'>Withdraw Amount </label>
-                    <input type='text' id='withdrawAmount' placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold '></input>                
+                    <input type='text' id='withdrawAmount' value={wAmount} onChange={handleChangeWithdraw} placeholder='Minium $10' className='text-gray-900 text-md font-mono w-[80%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold '></input>                
                 </div>
                 <div className='flex px-4 mt-10'>
                     <div className='flex w-[20%] mr-1'>
@@ -269,9 +320,9 @@ const Wallet = () => {
 
             </div>
             <div className='flex mt-32'>
-                <button className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>Withdraw</button>
+                <button onClick={handleSubmitWithdraw} className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>Withdraw</button>
                 <div className='mt-14 mr-auto'>
-                    <Tooltip content="Deposit History" placement="right">
+                    <Tooltip content="Withdraw History" placement="right">
                         <svg
                         fill="currentColor"
                         viewBox="0 0 16 16"
@@ -285,6 +336,7 @@ const Wallet = () => {
                 </div>
             </div>
         </div>
+        <ToastContainer />
 
     </div>
     );

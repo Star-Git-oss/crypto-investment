@@ -1,84 +1,82 @@
-import React from "react";
-import { Progress } from 'flowbite-react';
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import TaskBar from "../../components/user/TaskBar";
 
+import { setCredentials } from '../../slices/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import axios from "axios";
 const Cycle = () => {
-    
+
+    const { userInfo } = useSelector((state)=>state.auth);
+    const email = userInfo.email;
+    const dispatch = useDispatch();
+    const [bar1, setBar1] = useState({ cycle: 1, state: 1 });
+    const [bar2, setBar2] = useState({ cycle: 2, state: 1 });
+    const [bar3, setBar3] = useState({ cycle: 3, state: 1 });
+
+    useEffect(()=>{
+        // console.log(userInfo.cycle+" : "+userInfo.state);
+
+        if(userInfo.cycle==1) {
+            setBar1({state:userInfo.state});
+            setBar2({state:0});
+            setBar3({state:0});
+        } else if(userInfo.cycle==2){
+            setBar1({state:4});
+            setBar2({state:userInfo.state});
+            setBar3({state:0});
+        } else if(userInfo.cycle==3){
+            setBar1({state:4});
+            setBar2({state:4});
+            setBar3({state:userInfo.state});
+        }
+        // console.log(bar1);
+        // console.log(bar2);
+        // console.log(bar3);
+    },[userInfo.cycle, userInfo.state]);
+
+    const getStarted = (e) => {
+        e.preventDefault();
+
+        axios
+        .put("/api/balance/start", {email})
+        .then( res => {
+            // console.log(res.data);
+            dispatch(setCredentials({ ...res.data }));
+            toast.success("Your cycle started!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+        })
+        .catch(err => {
+            toast.error(err.response.data.message, {autoClose: 5000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+        });
+    }
+
+    const handleRewards = (e) => {
+        e.preventDefault();
+
+        axios
+        .put("/api/balance/rewards", {email})
+        .then( res => {
+            // console.log(res.data);
+            dispatch(setCredentials({ ...res.data }));
+            toast.success("Congratulations! Please enjoy next cycle!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+        })
+        .catch(err => {
+            toast.error(err.response.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+        });
+    }
+
     return (
+
     <div className='dark:text-white'>
+        <TaskBar cycle={1} state={bar1.state} getRewards={handleRewards} getStarted={getStarted}/>
+        <TaskBar cycle={2} state={bar2.state} getRewards={handleRewards} getStarted={getStarted}/>
+        <TaskBar cycle={3} state={bar3.state} getRewards={handleRewards} getStarted={getStarted}/>
 
-        <div className='h-32 bg-slate-700 rounded-xl'>
-            <div className="flex">
-                <div>
-                    <div className='pt-4 px-4 text-4xl font-bold text-cyan-400'>CYCLE 1</div>
-                    <div className='p-4 text-lg font-semibold text-cyan-400'>Invite just 2 friends and get reward $250</div>
-                </div>
-                <button className='w-52 h-20 my-auto mr-8 ml-auto rounded-xl text-4xl font-bold bg-cyan-500 hover:text-white text-slate-200'>BUY</button>
-            </div>
+        <ToastContainer />
 
-            {/* <div className="relative">
-                <div className="w-full h-6 bg-slate-500 rounded-lg -my-1 overflow-hidden">
-                    <div className="h-full bg-cyan-400 w-[50%]"></div>
-                    <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-white">50% (2 Invitees)</span>
-                </div>
-            </div> */}
-        </div>
-
-         <Link to={'/dashboard'}>
-            <div className='h-32 bg-slate-700 rounded-xl hover:scale-[102%] mt-10'>
-                <div className="flex">
-                    <div>
-                        <div className='pt-4 px-4 text-4xl font-bold text-cyan-400'>CYCLE 1</div>
-                        <div className='p-4 text-lg font-semibold text-cyan-400'>Invite just 2 friends and get reward $250</div>
-                    </div>
-                    <button className='w-52 h-20 my-auto mr-8 ml-auto rounded-xl text-2xl font-bold'>COMPLETED <div className="text-yellow-400 animate-bounce">+$250 REWARDS</div></button>
-                </div>
-
-                {/* <div className="relative">
-                    <div className="w-full h-6 bg-slate-500 rounded-lg -my-1 overflow-hidden">
-                        <div className="h-full bg-cyan-400 w-[50%]"></div>
-                        <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-white">50% (2 Invitees)</span>
-                    </div>
-                </div> */}
-            </div>
-        </Link>
-
-        <Link to={'/dashboard'}>
-        <div className='h-32 bg-slate-700 rounded-xl mt-10 hover:scale-[102%]'>
-
-            <div className="flex">
-                <div>
-                    <div className='pt-4 px-4 text-4xl font-bold text-cyan-400'>CYCLE 2</div>
-                    <div className='p-4 text-lg font-semibold text-cyan-400'>Invite just 2 friends and get reward $275</div>
-                </div>
-                <button className='w-52 h-20 my-auto mr-8 ml-auto  rounded-xl text-2xl font-bold text-green-400'>IN PROGRESS</button>
-            </div>
-
-            <div className="relative">
-                <div className="w-full h-6 bg-slate-500 rounded-lg -my-1 overflow-hidden">
-                    <div className="h-full bg-cyan-400 w-[25%]"></div>
-                    <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-white">25% (1 Invitee)</span>
-                </div>
-            </div>
-        </div>
-        </Link>
-
-        <div className='h-32 bg-slate-700 rounded-xl mt-10'>
-            <div className="flex">
-                <div>
-                    <div className='pt-4 px-4 text-4xl font-bold text-slate-400'>CYCLE 3</div>
-                    <div className='p-4 text-lg font-semibold text-slate-400'>Invite just 2 friends and get reward $300</div>
-                </div>
-                <button className='w-52 h-20 my-auto mr-8 ml-auto bg-slate-400 rounded-xl text-4xl font-bold hover:cursor-not-allowed'>BUY</button>
-            </div>
-
-            <div className="relative hidden">
-                <div className="w-full h-6 bg-slate-500 rounded-lg -my-1 overflow-hidden">
-                    <div className="h-full bg-slate-400 w-[0%]"></div>
-                    <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-white">0% (No Invitee)</span>
-                </div>
-            </div>
-        </div>
     </div>
     );
 };

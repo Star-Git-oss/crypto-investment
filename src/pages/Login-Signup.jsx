@@ -12,7 +12,6 @@ import { useRegisterMutation } from '../slices/usersApiSlice';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
-
 import axios from 'axios';
 const Login_Signup = () => {
 	const { isSidebarOpen, isSignupOpen,  closeSidebar, openSignup, openSidebar } = useGlobalContext();
@@ -98,8 +97,7 @@ const Login_Signup = () => {
 			return;
 		} else setMynote('');
 
-		try {
-			
+		try {	
 			const email = myemail;
 			const password = mypassword;
 			const res = await login({ email, password }).unwrap();
@@ -110,6 +108,7 @@ const Login_Signup = () => {
 			remember();
 			closeSidebar();
 		  } catch (err) {
+			setMypassword('');
 			toast.error(err?.data?.message || err.error, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
 	    }
 	}
@@ -265,7 +264,7 @@ const Login_Signup = () => {
 	return (
 		<div className='flex'>
 			<div
-				className={`transition-all duration-500 fixed top-44 ${
+				className={`transition-all duration-500 fixed top-6 sm:top-24 ${
 					isSidebarOpen|isSignupOpen ? '' : 'hidden'
 				} left-1/2 transform -translate-x-1/2 z-10`}
 			>

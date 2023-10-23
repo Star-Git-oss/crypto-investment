@@ -1,6 +1,6 @@
 
 import { Tooltip } from "@material-tailwind/react";
-const Node = ({avatar, username, email, active=false}) => {
+const Node = ({avatar, username="", email="", active=false}) => {
     return (
         <div>
             <div className="flex flex-col items-center gap-4 py-8">

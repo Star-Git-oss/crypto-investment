@@ -37,6 +37,15 @@ const Navbar = () => {
     }
   };
 
+  const copyURL = async () => {
+    try {
+      await navigator.clipboard.writeText("http://localhost:3000/user?invite="+myLink);
+      toast.success('Copy success!', {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+    } catch (error) {
+      console.log("Copy failed:", error);
+    }
+  };
+
   return (
     <nav className='bg-white border-gray-200 rounded dark:bg-slate-900 shadow-md shadow-black w-full top-0 h-20 sticky'>
       <div className='container flex justify-between items-center mx-auto py-2 w-[1348px]'>
@@ -47,7 +56,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        <div className='flex mx-auto relative'>
+        <div className='flex ml-auto relative '>
           {/* <section className='ml-30 my-auto'>
               <div className="content whitespace-nowrap">
                 <h2>My Link </h2>
@@ -55,9 +64,33 @@ const Navbar = () => {
               </div>
           </section> */}
           {/* <div className=' text-xl text-cyan-300 whitespace-nowrap mr-8'>Invite your friends with referal link </div> */}
-          <input type='text' placeholder='Referral Code : ' className=' text-gray-900 text-sm rounded-lg w-[240px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
+          <input type='text' placeholder='Referral : ' className=' text-gray-900 text-sm rounded-l-lg w-[240px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
           <label className="absolute right-16 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text"> {myLink}</label>
           <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyLink}>
+            <svg
+              viewBox="0 0 24 24"
+              className='w-5 '
+              fill="currentColor"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1.001 1.001 0 013 21l.003-14c0-.552.45-1 1.007-1H7zM5.003 8L5 20h10V8H5.003zM9 6h8v10h2V4H9v2z" />
+            </svg>
+          </button>
+          {/* <button className="absolute right-0 px-1 mr-2 top-0 bottom-0 rounded-r-lg text-gray-300 hover:text-white" onClick={openQR}>
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className='w-5'
+            >
+              <path d="M3 11h8V3H3zm2-6h4v4H5zM3 21h8v-8H3zm2-6h4v4H5zm8-12v8h8V3zm6 6h-4V5h4zm-5.99 4h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm4 0h2v2h-2zm2 2h2v2h-2zm-4 0h2v2h-2zm2-6h2v2h-2zm2 2h2v2h-2z" />
+            </svg>
+          </button> */}
+        </div>
+
+        <div className='flex mr-auto relative'>
+          <input type='text' className=' text-gray-900 text-sm rounded-r-lg w-[340px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
+          <label className="absolute right-16 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text"> https://.../user?invite={myLink}</label>
+          <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyURL}>
             <svg
               viewBox="0 0 24 24"
               className='w-5 '

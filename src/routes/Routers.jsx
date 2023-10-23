@@ -8,6 +8,7 @@ import Cycle from '../pages/user/Cycle';
 import Wallet from '../pages/user/Wallet';
 import Profile from '../pages/user/Profile';
 import ErrorPage from '../pages/error-page';
+import PrivateRoute from '../components/PrivateRoute';
 const Routers = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,11 +22,13 @@ const Routers = () => {
       <Routes>
         <Route path='/' element={<Landing />} errorElement={<ErrorPage/>} />
         <Route path='/user' element={<Landing />} />
-        <Route element={<Layout />}>
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/cycle' element={<Cycle />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/wallet' element={<Wallet />} />
+        <Route element={<PrivateRoute/>}>
+          <Route element={<Layout />}>
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/cycle' element={<Cycle />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/wallet' element={<Wallet />} />
+          </Route>
         </Route>
       </Routes>
     </InviteContext.Provider>

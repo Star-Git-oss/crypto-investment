@@ -3,7 +3,7 @@ import mylogo from '../assets/logo1.png'
 import { close, menu } from "../assets";
 import { useGlobalContext } from "../context/SidebarContext";
 import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout, setCredentials } from '../slices/authSlice';
+import { logout, setCredentials, setNodes } from '../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -12,29 +12,45 @@ const Navbar = () => {
 
   const [toggle, setToggle] = useState(false);
   const { userInfo }  = useSelector((state) => state.auth);
+  // const { nodes } = useSelector((state)=> state.auth);
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Function to send the GET request
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/users/');
-        // Handle the response from the API
         dispatch(setCredentials({ ...response.data }));
+
+        const email = response.data.email;
+        console.log('mail : '+email);
+
+        await axios
+        .post("/api/tree", {email})
+        .then( res => {
+            console.log(userInfo.state);
+            console.log(res.data);
+            // if(userInfo.state != 0 || userInfo.state != 1)
+            // {
+            dispatch(setNodes({ ...res.data }));
+                // }    
+                
+            console.log("Tree Updated Successfully!");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
         console.log(response.data);
-        
       } catch (error) {
-        // Handle any errors that occur during the request
         console.error(error.message);
       };
     };
-
-    // Call the fetchData function when the component mounts
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once
+    
+  }, []); 
 
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { openSidebar, openSignup } = useGlobalContext();
   const [logoutApiCall] = useLogoutMutation();
   const logoutHandler = async () => {
@@ -125,7 +141,7 @@ const Navbar = () => {
           (<ul>
             <li
               className="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite hover:text-white"
-              onClick={openSidebar}
+              onClick={() => navigate('/dashboard')}
             >
               Get Started
             </li>

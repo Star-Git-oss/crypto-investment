@@ -5,8 +5,8 @@ import { createRef } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 
 import { useSelector, useDispatch } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useUpdateUserMutation } from '../../slices/usersApiSlice';
 import { setCredentials } from '../../slices/authSlice';
 
@@ -16,7 +16,7 @@ const Profile = () => {
     const { userInfo } = useSelector((state)=>state.auth);
     const [image, setImage] = useState(userInfo.avatar);
     const inputFileRef = createRef(null);
-    const [newImage,setNewImage]=useState(null);
+    // const [newImage,setNewImage]=useState(null);
 
     const [username, setUsername] = useState(userInfo.username);
     const [password, setPassword] = useState("");
@@ -24,26 +24,32 @@ const Profile = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [updateProfile, { isLoading }] = useUpdateUserMutation();
+    const [isUpdate, setUpdate] = useState(false);
+
     const dispatch = useDispatch();
 
     const handleUsername = (e) => {
         e.preventDefault();
         setUsername(e.target.value);
+        setUpdate(true);
     }
 
     const handlePassword = (e) => {
         e.preventDefault();
         setPassword(e.target.value);
+        setUpdate(true);
     }
 
     const handleNewPassword= (e) => {
         e.preventDefault();
         setNewPassword(e.target.value);
+        setUpdate(true);
     }
 
     const handleConfirmPassword= (e) => {
         e.preventDefault();
         setConfirmPassword(e.target.value);
+        setUpdate(true);
     }
   
     const handleOnChange = async(event) => {
@@ -59,12 +65,13 @@ const Profile = () => {
       if (file) {
         reader.readAsDataURL(file);
       }
-      setNewImage(file);
+    //   setNewImage(file);
+      setUpdate(true);
     };
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-        console.log((!newPassword^!password)&&(!password^!confirmPassword));
+        // console.log((!newPassword^!password)&&(!password^!confirmPassword));
         if((!password^!newPassword)) {
             toast.error('Check Passwork Field!', {autoClose: 2000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
             return;
@@ -94,6 +101,7 @@ const Profile = () => {
             setPassword("");
             setNewPassword("");
             setConfirmPassword("");
+            setUpdate(false);
         } catch (err) {
               toast.error(err?.data?.message || err.error, {autoClose: 3000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
             }
@@ -179,7 +187,8 @@ const Profile = () => {
                 </div>
             </div>
             <div className='mt-16 flex'>
-              <button className='w-44 text-center mx-auto p-2 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold' onClick={handleUpdateProfile}>UPDATE</button>
+              {isUpdate?<button className='w-44 text-center mx-auto p-2 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold' onClick={handleUpdateProfile}>UPDATE</button>
+              : <button className='w-44 text-center mx-auto p-2 bg-slate-400 hover:text-white text-slate-200 rounded-xl text-3xl font-bold' onClick={()=>{return;}}>UPDATE</button>}
             </div>
 
         </div>
