@@ -18,8 +18,7 @@ const Cycle = () => {
     const [bar3, setBar3] = useState({ cycle: 3, state: 1 });
 
     useEffect(()=>{
-        // console.log(userInfo.cycle+" : "+userInfo.state);
-
+ 
         if(userInfo.cycle==1) {
             setBar1({state:userInfo.state});
             setBar2({state:0});
@@ -33,9 +32,7 @@ const Cycle = () => {
             setBar2({state:4});
             setBar3({state:userInfo.state});
         }
-        // console.log(bar1);
-        // console.log(bar2);
-        // console.log(bar3);
+
     },[userInfo.cycle, userInfo.state]);
 
     const getStarted = (e) => {

@@ -5,14 +5,16 @@ import TaskBar from '../../components/user/TaskBar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { setNodes } from '../../slices/authSlice';
+import { setCredentials, setNodes } from '../../slices/authSlice';
 import axios from 'axios';
 
 const Dashboard = () => {
     
     const { userInfo } = useSelector((state)=>state.auth);
     const { nodes } = useSelector((state)=> state.auth);
-    const email = userInfo.email;
+    const [prevFullTree, setPrevFullTree] = useState(false);
+    const [email, setEmail] = useState(userInfo.email);
+    const [cycle, setCycle] = useState(userInfo.cycle);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -20,25 +22,43 @@ const Dashboard = () => {
         navigate('/cycle');
     }
 
+    useEffect(()=>{
+        setEmail(userInfo.email);
+        setCycle(userInfo.cycle);
+    }, [userInfo]);
+
     useEffect(() => {
-         axios
-        .post("/api/tree", {email})
+        if(userInfo.state == 2) {
+        axios
+        .post("/api/tree", {email, cycle})
         .then( res => {
-            console.log(userInfo.state);
-            console.log('res',res.data);
+            console.log(res.data);
             dispatch(setNodes({ ...res.data }));
-            console.log("Tree Updated Successfully!");
+            const fullTree = Object.values(res.data).every(node => Object.keys(node).length > 0);
+            console.log("Tree Updated Successfully!", fullTree);
+            if(fullTree) {
+                 axios
+                .post("/api/users/cycle", { email, cycle })
+                .then(res => {
+                console.log('res', res.data);
+                dispatch(setCredentials({ ...res.data }));
+                console.log("Upstate Successfully!");
+                })
+                .catch(err => {
+                console.log(err);
+                });
+            }
         })
         .catch(err => {
             console.log(err);
         });
+        }
       }, []);
 
-      console.log('----', nodes);
-      let percentage;
-      if(nodes){ percentage = (nodes.node1.email?1:0)*25 + (nodes.node2.email?1:0)*25 + (nodes.node11.email?1:0)*12.5 + (nodes.node12.email?1:0)*12.5 + (nodes.node21.email?1:0)*12.5 + (nodes.node22.email?1:0)*12.5;}
+    let percentage;
+    if(nodes){ percentage = (nodes.node1.email?1:0)*25 + (nodes.node2.email?1:0)*25 + (nodes.node11.email?1:0)*12.5 + (nodes.node12.email?1:0)*12.5 + (nodes.node21.email?1:0)*12.5 + (nodes.node22.email?1:0)*12.5;}
 
-      console.log(percentage);
+    console.log(percentage);
     return (
     <div className='dark:text-whiteh-screen xs:w-full w-[80%]'>
         <div className='mt-20'>

@@ -54,6 +54,14 @@ const Login_Signup = () => {
 		//   setReferalLink('');
 		  setCode('');
 		  setNote('');
+
+
+		  setForgotCode('');
+		  setForgotEmail('');
+		  setForgotNote('');
+		  setForgotPassConfirm('');
+		  setForgotPassword('');
+
 		  if(!rememberMe) {
 			setMyemail('');
 			setMypassword('');
@@ -181,10 +189,21 @@ const Login_Signup = () => {
 	}
 	  
 	const handleForgotSendCodeClick = () => {
-		if(validateEmail(forgot_email)) setForgotNote(`Sent reset password code to ${forgot_email}`);
-		else {
+		if(validateEmail(forgot_email)) {
+
+			axios
+			.post("/api/users/remail", {forgot_email})
+			.then( res => {
+				setForgotNote(`Sent reset password code to ${forgot_email}`);
+			})
+			.catch(err => {
+				toast(err.response.data.message, {autoClose: 3000, theme: "dark",});
+			});
+
+		} else {
 			setForgotNote('Invalid email');
 		}
+
 	}
 
 	const handleForgotCodeChange = (e) => {
@@ -196,7 +215,7 @@ const Login_Signup = () => {
 	}
 
 
-	const handleUpdatePasswordClick = (event) => {
+	const handleUpdatePasswordClick = async(event) => {
 		event.preventDefault();
 		if(forgot_code=='') {
 			setForgotNote('Send reset password code.');
@@ -214,7 +233,31 @@ const Login_Signup = () => {
 			return;
 		}
 
-		console.log('Forgot Email : '+forgot_email+', Reset Code : '+forgot_code+', New Password : '+forgot_password+', Confirm Password : '+confirm_password);
+		if(!validateEmail(forgot_email)) {
+			setForgotNote('Invalid Email');
+			return;
+		} else setForgotNote('');
+
+		console.log('Forgot Email : '+forgot_email+', Reset Code : '+forgot_code+', New Password : '+forgot_password+', Confirm Password : '+forgot_confirm_password);
+
+		try {
+			await axios
+			.post("/api/users/password", {forgot_email,forgot_code,forgot_password})
+			.then( res => {
+				navigate('/');
+				toast.success('Password Changed Successfully!', {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+				openSidebar();
+				setForgot(false);				
+			})
+			.catch(err => {
+				toast(err.response.data.message, {autoClose: 3000, theme: "dark",});
+			});
+
+		} catch (err) {
+			toast.error(err?.data?.message || err.error, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+			// setNote('');
+		}
+
 	}
 
 	const validatePassword = (password) => {

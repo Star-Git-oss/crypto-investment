@@ -10,11 +10,6 @@ const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here="
                 <div>
                     <div className=" px-8 text-4xl font-bold text-cyan-400">CYCLE {cycle}</div>
                     <div className='p-8 text-xl font-semibold text-cyan-400 hidden sm:block'>
-                        {/* <div>
-                            {state === 1 && cycle === 1 && 'Activate cycle and start $250 reward plan'}
-                            {state === 1 && cycle === 2 && 'Activate cycle and start $275 reward plan'}
-                            {state === 1 && cycle === 3 && 'Activate cycle and start $300 reward plan'}
-                        </div> */}
                         <div>
                             {cycle === 1 && 'Invite just 2 friends and get reward $250'}
                             {cycle === 2 && 'Invite just 2 friends and get reward $275'}
