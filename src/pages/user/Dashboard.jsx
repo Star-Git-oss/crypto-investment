@@ -12,7 +12,6 @@ const Dashboard = () => {
     
     const { userInfo } = useSelector((state)=>state.auth);
     const { nodes } = useSelector((state)=> state.auth);
-    const [prevFullTree, setPrevFullTree] = useState(false);
     const [email, setEmail] = useState(userInfo.email);
     const [cycle, setCycle] = useState(userInfo.cycle);
     const navigate = useNavigate();
