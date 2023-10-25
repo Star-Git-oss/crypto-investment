@@ -20,6 +20,8 @@ const Profile = () => {
 
     const [username, setUsername] = useState(userInfo.username);
     const [password, setPassword] = useState("");
+    const [referral_link, setReferral_link]= useState(userInfo.referral_link);
+    const link = userInfo.referral_link;
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -31,6 +33,12 @@ const Profile = () => {
     const handleUsername = (e) => {
         e.preventDefault();
         setUsername(e.target.value);
+        setUpdate(true);
+    }
+
+    const handleLink = (e) => {
+        e.preventDefault();
+        setReferral_link(e.target.value);
         setUpdate(true);
     }
 
@@ -88,6 +96,7 @@ const Profile = () => {
             const res = await updateProfile({
                 _id : userInfo._id,
                 username: username,
+                referral_link : referral_link,
                 password: password,
                 newPassword: newPassword,
                 avatar : image,
@@ -171,8 +180,13 @@ const Profile = () => {
                 </div>
                 <div className='flex px-4'>
                     <label htmlFor='email' className='w-[40%] text-md font-mono my-auto'>Email *</label>
-                    <input type='text' id='email' value={userInfo.email} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-600 cursor-not-allowed font-bold focus:outline-none' readOnly></input>                
+                    <input type='text' id='email' value={userInfo.email} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-500 cursor-not-allowed font-bold focus:outline-none' readOnly></input>                
                 </div>
+                <div className='flex px-4'>
+                    <label htmlFor='referral_link' className='w-[40%] text-md font-mono my-auto'>Referal Link</label>
+                    {link?<input type='text' id='referral_link' value={referral_link} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400 cursor-not-allowed  dark:text-cyan-500 font-bold' readOnly></input>                
+                    : <input type='text' id='referral_link' placeholder='referral link' value={referral_link} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400 dark:text-cyan-400 font-bold' onChange={handleLink}></input> }
+                    </div>
                 <div className='flex px-4'>
                     <label htmlFor='password' className='w-[40%] text-md font-mono my-auto'>Current Password</label>
                     <input type='password' id='password' placeholder='password' value={password} onChange={handlePassword} className='text-gray-900 text-md font-mono w-[60%] rounded-lg p-2.5 dark:bg-slate-700 dark:border-gray-400  dark:text-cyan-400 font-bold'></input>                
