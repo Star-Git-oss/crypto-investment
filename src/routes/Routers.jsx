@@ -2,13 +2,21 @@ import { Route, Routes, useSearchParams} from 'react-router-dom';
 import Landing from '../pages/Landing';
 import InviteContext from '../context/InviteContext';
 import { useState } from 'react';
+import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/user/Dashboard';
 import Layout from '../components/user/Layout';
 import Cycle from '../pages/user/Cycle';
 import Wallet from '../pages/user/Wallet';
 import Profile from '../pages/user/Profile';
 import ErrorPage from '../pages/error-page';
-import PrivateRoute from '../components/PrivateRoute';
+
+import AdminLayout from '../components/admin/Layout';
+import Admin from '../pages/admin/Admin';
+import Withdraw from '../pages/admin/Withdraw';
+import Investment from '../pages/admin/Investment';
+import Users from '../pages/admin/Users';
+import AdminRoute from './AdminRoute';
+
 const Routers = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,6 +36,14 @@ const Routers = () => {
             <Route path='/cycle' element={<Cycle />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/wallet' element={<Wallet />} />
+          </Route>
+        </Route>
+        <Route element={<AdminRoute/>}>
+          <Route element={<AdminLayout />}>
+            <Route path='/admin' element={<Admin />} />
+            <Route path='/users' element={<Users />} />
+            <Route path='/investment' element={<Investment />} />
+            <Route path='/withdraw' element={<Withdraw />} />
           </Route>
         </Route>
       </Routes>
