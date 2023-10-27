@@ -47,16 +47,29 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='bg-white border-gray-200 rounded dark:bg-slate-900 shadow-md shadow-black w-full top-0 h-20 sticky'>
-      <div className='container flex justify-between items-center mx-auto py-2 w-[1348px]'>
+    <nav className='bg-white border-gray-200 rounded dark:bg-slate-900 shadow-md shadow-black w-full top-0 sticky'>
+      <div className='flex items-center mx-auto py-2 lg:w-[1280px] w-full'>
         <ToastContainer />
         <Link to={'/'}>
-          <div className='flex items-center justify-start pl-20'>
-            <img src={Logo} alt='logo' className='w-28'/><span className='text-white ml-4  xs:hidden'>Code: {myLink}</span>
-          </div>
+            <img src={Logo} alt='logo' className='w-28 xs:ml-8'/>
         </Link>
 
-        <div className='flex ml-auto relative '>
+        <div className='flex mx-auto relative md:hidden'>
+          <input type='text' placeholder='Referral : ' className=' text-gray-900 text-sm rounded-lg w-[180px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
+          <label className="absolute right-12 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text"> {myLink}</label>
+          <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyLink}>
+            <svg
+              viewBox="0 0 24 24"
+              className='w-5 '
+              fill="currentColor"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1.001 1.001 0 013 21l.003-14c0-.552.45-1 1.007-1H7zM5.003 8L5 20h10V8H5.003zM9 6h8v10h2V4H9v2z" />
+            </svg>
+          </button>
+        </div>
+
+        <div className='flex ml-auto relative hidden md:block'>
           {/* <section className='ml-30 my-auto'>
               <div className="content whitespace-nowrap">
                 <h2>My Link </h2>
@@ -87,7 +100,7 @@ const Navbar = () => {
           </button> */}
         </div>
 
-        <div className='flex mr-auto relative'>
+        <div className='flex mr-auto relative hidden md:block'>
           <input type='text' className=' text-gray-900 text-sm rounded-r-lg w-[340px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
           <label className="absolute right-16 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text"> https://.../user?invite={myLink}</label>
           <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyURL}>
@@ -111,7 +124,7 @@ const Navbar = () => {
           </button> */}
         </div>
           
-        <div className="relative inline-flex w-fit ">
+        <div className="relative inline-flex mr-8">
           <div
             className="absolute bottom-auto left-auto right-0 top-0 z-10 inline-block -translate-y-1/2 translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 whitespace-nowrap rounded-full bg-cyan-500 px-2.5 py-1 text-center align-baseline text-xs font-bold leading-none text-white animate-pulse">
             New
@@ -127,6 +140,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
+
         {isQROpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-black rounded-lg p-6 relative z-50">

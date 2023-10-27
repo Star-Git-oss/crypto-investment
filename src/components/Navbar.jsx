@@ -100,7 +100,7 @@ const Navbar = () => {
             <a title="Get quote now"
                 className="relative inline-flex items-center justify-center px-4 py-1 text-lg font-normal text-white transition-all duration-200 bg-gray-900 font-poppins rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                 role="button"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/admin')}
                 >Get Started
             </a>
         </div>

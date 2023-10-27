@@ -59,8 +59,8 @@ const Dashboard = () => {
 
     console.log(percentage);
     return (
-    <div className='dark:text-whiteh-screen xs:w-full w-[80%]'>
-        <div className='mt-20'>
+    <div className='dark:text-white'>
+        <div className='sm:mt-10 mt-16'>
             <TaskBar cycle={userInfo.cycle} state={userInfo.state} percentage={percentage} getRewards={handleBar} getStarted={handleBar} here="dashboard" />
         </div>
         {

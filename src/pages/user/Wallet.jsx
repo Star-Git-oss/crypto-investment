@@ -80,7 +80,7 @@ const Wallet = () => {
       
     return (
     <div className='dark:text-white '>
-        <div className='flex mt-16'>
+        <div className='flex sm:mt-10 mt-16'>
             <button
             className={`w-[40%] p-2 rounded-l-lg font-semibold text-lg ${
                 isActive ? "bg-slate-700 shadow-md shadow-cyan-400" : "bg-slate-700 shadow-md shadow-black"
@@ -224,7 +224,7 @@ const Wallet = () => {
 
             </div>
             <div className='flex'>
-                 <button onClick={handleSubmitDeposit} className='w-44 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>PAY NOW</button>
+                 <button onClick={handleSubmitDeposit} className='sm:w-44 w-36 text-center mt-10 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl sm:text-3xl text-2xl font-bold'>PAY NOW</button>
                 <div className='mt-14 mr-auto'>
                     <Tooltip content="Deposit History" placement="right">
                         <svg
@@ -318,7 +318,7 @@ const Wallet = () => {
 
             </div>
             <div className='flex'>
-                <button onClick={handleSubmitWithdraw} className='w-44 text-center mt-12 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl text-3xl font-bold'>Withdraw</button>
+                <button onClick={handleSubmitWithdraw} className='sm:w-44 w-36 text-center mt-12 ml-auto mr-10 p-4 bg-cyan-500 hover:text-white text-slate-200 rounded-xl sm:text-3xl text-2xl font-bold'>Withdraw</button>
                 <div className='mt-14 mr-auto'>
                     <Tooltip content="Withdraw History" placement="right">
                         <svg

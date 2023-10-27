@@ -152,8 +152,8 @@ const Profile = () => {
         };
 
     return (
-    <div className='dark:text-white'>
-        <div className='sm:w-[60%] xs:w-[60%] w-full mx-auto mt-16'>
+    <div className='dark:text-white justify-center items-center h-full'>
+        <div className='sm:w-[60%] xs:w-[60%] w-full mx-auto sm:mt-10 mt-16'>
             <div className="relative">
                 <input
                     ref={inputFileRef}

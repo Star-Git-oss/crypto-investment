@@ -1,8 +1,8 @@
 .hamburger {
     cursor: pointer;
-    width: 14px;
-    height: 14px;
-    margin: 8px;
+    width: 24px;
+    height: 24px;
+    margin: 24px;
     transition: all 0.25s;
     position: absolute;
 }

@@ -67,7 +67,7 @@ const Cycle = () => {
 
     return (
 
-    <div className='dark:text-white mt-16 xs:w-full w-[80%]'>
+    <div className='dark:text-white sm:mt-10 mt-16 w-full'>
         <TaskBar cycle={1} state={bar1.state} getRewards={handleRewards} getStarted={getStarted}/>
         <TaskBar cycle={2} state={bar2.state} getRewards={handleRewards} getStarted={getStarted}/>
         <TaskBar cycle={3} state={bar3.state} getRewards={handleRewards} getStarted={getStarted}/>
