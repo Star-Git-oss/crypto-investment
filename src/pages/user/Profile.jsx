@@ -182,7 +182,7 @@ const Profile = () => {
         }
         
         return true;
-        };
+    };
 
     return (
     <div className='dark:text-white justify-center items-center h-full'>

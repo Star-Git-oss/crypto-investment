@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import EarnIco from '../../assets/total-earn.c13de7d2.svg'
-import { FaUsers } from 'react-icons/fa'
-import Node from '../../components/admin/Node';
-import Avatar00 from '../../assets/avatar12.png'
-import TaskBar from '../../components/admin/TaskBar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { setCredentials, setNodes } from '../../slices/authSlice';
 import axios from 'axios';
 
+import { BalanceContext } from '../../context/balanceContext';
+
 const Admin = () => {
 
     const [dashboardInfo, setDashboardInfo] = useState();
+    const {dispatch} = useContext(BalanceContext);
 
     useEffect(() => {
         axios
@@ -20,6 +19,7 @@ const Admin = () => {
         .then( res => {
             setDashboardInfo(res.data)
             console.log("All dashboard Info founded Successfully!", res.data);
+            dispatch({type:"SET_BALANCE",payload:res.data.balance});
         })
         .catch(err => {
             console.log(err);
