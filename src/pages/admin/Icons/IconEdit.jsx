@@ -10,7 +10,8 @@ function IconEdit(props) {
       strokeLinejoin="round"
       strokeWidth={2}
       viewBox="0 0 24 24"
-      className="w-6 h-6"
+      height="1em"
+      width="1em"
       {...props}
     >
       <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />

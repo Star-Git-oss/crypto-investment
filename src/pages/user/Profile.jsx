@@ -1,6 +1,6 @@
 import React from 'react'
 import Avatar from '../../assets/avatar12.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createRef } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 
@@ -9,6 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUpdateUserMutation } from '../../slices/usersApiSlice';
 import { setCredentials } from '../../slices/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../slices/authSlice';
+import { useLogoutMutation } from '../../slices/usersApiSlice';
+import axios from 'axios';
 
 
 const Profile = () => {
@@ -29,6 +33,35 @@ const Profile = () => {
     const [isUpdate, setUpdate] = useState(false);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [logoutApiCall] = useLogoutMutation();
+    const logoutHandler = async () => {
+      try {
+        const res = await logoutApiCall().unwrap();
+        navigate('/');
+        dispatch(logout());
+        console.log(res.message);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('/api/users/');
+            console.log(response.data);
+            dispatch(setCredentials({ ...response.data }));
+            
+          } catch (error) {
+            console.error(error.message);
+            logoutHandler();
+          };
+        };
+        fetchData();
+      }, []); 
+
 
     const handleUsername = (e) => {
         e.preventDefault();

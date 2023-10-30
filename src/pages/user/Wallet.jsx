@@ -1,21 +1,51 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Tooltip } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCredentials } from '../../slices/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import { configureStore } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../slices/authSlice';
+import { useLogoutMutation } from '../../slices/usersApiSlice';
 
 const Wallet = () => {
 
     const { userInfo } = useSelector((state)=>state.auth);
     const email = userInfo.email;
 
-    const dispatch = useDispatch();
-
     const [isActive, setIsActive] = useState(true);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [logoutApiCall] = useLogoutMutation();
+    const logoutHandler = async () => {
+      try {
+        const res = await logoutApiCall().unwrap();
+        navigate('/');
+        dispatch(logout());
+        console.log(res.message);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('/api/users/');
+            console.log(response.data);
+            dispatch(setCredentials({ ...response.data }));
+            
+          } catch (error) {
+            console.error(error.message);
+            logoutHandler();
+          };
+        };
+        fetchData();
+      }, []); 
 
     const handleClickDeposit = () => {
       setIsActive(!isActive);
@@ -52,12 +82,12 @@ const Wallet = () => {
         .then( res => {
             console.log(res.data);
             dispatch(setCredentials({ ...res.data }));
-            toast.success("Successful Deposit!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            toast.success("Successful Deposit!", {autoClose: 2000, pauseOnHover: false, closeOnClick: true, theme: "dark",});
             setDamount("");
         })
         .catch(err => {
             // toast.error(res.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
-            toast.error(err.response.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            toast.error(err.response.data.message, {autoClose: 2000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
         });
     }
 
@@ -68,7 +98,7 @@ const Wallet = () => {
         .put("/api/balance/withdraw", {email, wAmount})
         .then( res => {
             dispatch(setCredentials({ ...res.data }));
-            toast.success("Successful withdrawal!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            toast.success("Withdrawal request sent successfully!", {autoClose: 2000, pauseOnHover: false, closeOnClick: true, theme: "dark",});
             setWamount("");
         })
         .catch(err => {

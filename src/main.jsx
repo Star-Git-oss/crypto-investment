@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './store';
 import store from './store';
 import './index.css';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext'; 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 

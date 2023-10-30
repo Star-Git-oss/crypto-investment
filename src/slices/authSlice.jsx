@@ -21,9 +21,15 @@ const authSlice = createSlice({
     setNodes : (state, action) => {
       state.nodes = action.payload;
     },
+    setUsers : (state, action) => {
+      state.users = action.payload;
+    },
+    setPercentage : (state, action) => {
+      state.percentage = action.payload;
+    },
   },
 });
 
-export const { setCredentials, logout, setNodes } = authSlice.actions;
+export const { setCredentials, logout, setNodes, setUsers, setPercentage } = authSlice.actions;
 
 export default authSlice.reducer;
