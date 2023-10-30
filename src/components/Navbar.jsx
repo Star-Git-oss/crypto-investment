@@ -54,7 +54,6 @@ const Navbar = () => {
   const { openSidebar, openSignup } = useGlobalContext();
   const [logoutApiCall] = useLogoutMutation();
   const logoutHandler = async () => {
-    
     try {
       const res = await logoutApiCall().unwrap();
       navigate('/');

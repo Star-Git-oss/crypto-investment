@@ -312,8 +312,8 @@ const Login_Signup = () => {
 				} left-1/2 transform -translate-x-1/2 z-10`}
 			>
 					
-					<div className='flex justify-center'>
-						<div className='w-[400px] mx-auto bg-gray-900 p-8 rounded-3xl '>
+					<div className={`flex justify-center ${isSignupOpen?'xs:block h-[90vh]':''} `}>
+						<div className='xs:w-[400px] w-[340px] mx-auto bg-gray-900 p-8 rounded-3xl overflow-auto'>
 							<a
 								onClick={closeSidebar}
 								className="absolute top-2 right-2 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center active:bg-gray-300 focus:outline-none ml-6 hover:bg-gray-200 hover:text-gray-800"

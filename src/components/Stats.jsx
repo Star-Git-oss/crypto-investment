@@ -1,19 +1,22 @@
-import { stats } from "../constants";
-import styles from "../style";
+// icon:edit | Feathericons https://feathericons.com/ | Cole Bemis
+import * as React from "react";
 
-const Stats = () => (
-  <section className={`${styles.flexCenter} flex-row flex-wrap sm:mb-20 mb-6`}>
-    {stats.map((stat) => (
-      <div key={stat.id} className={`flex-1 flex justify-start items-center flex-row m-3`} >
-        <h4 className="font-poppins font-semibold xs:text-[40.89px] text-[30.89px] xs:leading-[53.16px] leading-[43.16px] text-white">
-          {stat.value}
-        </h4>
-        <p className="font-poppins font-normal xs:text-[20.45px] text-[15.45px] xs:leading-[26.58px] leading-[21.58px] text-gradient uppercase ml-3">
-          {stat.title}
-        </p>
-      </div>
-    ))}
-  </section>
-);
+function IconEdit(props) {
+  return (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+      className="w-6 h-6"
+      {...props}
+    >
+      <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+      <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+    </svg>
+  );
+}
 
-export default Stats;
+export default IconEdit;

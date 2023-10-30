@@ -48,8 +48,7 @@ const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here="
             {state === 2 && (
             <div className="relative">
                 <div className="w-full h-6 bg-slate-500 rounded-lg -my-1 overflow-hidden">
-                    {/* <div className={`h-full bg-cyan-400 w-[${percentage}%]`}></div> */}
-                    <div className={`h-full bg-cyan-400 ${percentage < 1 ? 'w-0' : `w-[${percentage}%]`}`}></div>
+                    <div style={{ width: `${percentage}%`}} className='h-full bg-cyan-400'></div>
                     <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-white">{percentage}%</span>
                 </div>
             </div>

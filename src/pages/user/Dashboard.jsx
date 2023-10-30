@@ -1,11 +1,13 @@
 import React from 'react'
 import Node from '../../components/user/Node';
-import Avatar00 from '../../assets/avatar12.png'
+import Avatar00 from '../../assets/avatar12.png';
 import TaskBar from '../../components/user/TaskBar';
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { setCredentials, setNodes } from '../../slices/authSlice';
+import { setCredentials, setNodes, setPercentage } from '../../slices/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../slices/authSlice';
+import { useLogoutMutation } from '../../slices/usersApiSlice';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -14,8 +16,7 @@ const Dashboard = () => {
     const { nodes } = useSelector((state)=> state.auth);
     const [email, setEmail] = useState(userInfo.email);
     const [cycle, setCycle] = useState(userInfo.cycle);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+
 
     const handleBar = () =>{
         navigate('/cycle');
@@ -25,6 +26,36 @@ const Dashboard = () => {
         setEmail(userInfo.email);
         setCycle(userInfo.cycle);
     }, [userInfo]);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [logoutApiCall] = useLogoutMutation();
+    const logoutHandler = async () => {
+      try {
+        const res = await logoutApiCall().unwrap();
+        navigate('/');
+        dispatch(logout());
+        console.log(res.message);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('/api/users/');
+            console.log(response.data);
+            dispatch(setCredentials({ ...response.data }));
+            
+          } catch (error) {
+            console.error(error.message);
+            logoutHandler();
+          };
+        };
+        fetchData();
+      }, []); 
 
     useEffect(() => {
         if(userInfo.state == 2) {
@@ -57,6 +88,8 @@ const Dashboard = () => {
     let percentage;
     if(nodes){ percentage = (nodes.node1.email?1:0)*25 + (nodes.node2.email?1:0)*25 + (nodes.node11.email?1:0)*12.5 + (nodes.node12.email?1:0)*12.5 + (nodes.node21.email?1:0)*12.5 + (nodes.node22.email?1:0)*12.5;}
 
+    dispatch(setPercentage(percentage));
+    
     console.log(percentage);
     return (
     <div className='dark:text-white'>
