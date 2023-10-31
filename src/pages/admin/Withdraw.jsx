@@ -131,10 +131,10 @@ const Withdraw = () => {
                             </thead>
 
                             <tbody className="font-semibold font-sans text-md text-slate-300">
-                                <div className='h-[60vh] overflow-y-auto'>
+                                <div className='h-[70vh] overflow-y-auto'>
                                     {balance && balance.map((user, index) => (
                                         <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                            <td className="p-3 w-24 xs:w-60">
+                                            <td className="p-3 w-24 xs:w-60 align-middle">
                                                 <div className="flex">
                                                     {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
                                                     <div className="ml-8 my-auto  hidden xs:table-cell">
@@ -143,16 +143,16 @@ const Withdraw = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="p-3 w-60 hidden lg:table-cell">
+                                            <td className="p-3 w-60 hidden lg:table-cell align-middle">
                                                 {user.email}
                                             </td>
-                                            <td className="p-3 w-16 font-bold text-cyan-400 hidden xs:table-cell">
+                                            <td className="p-3 w-16 font-bold text-cyan-400 hidden xs:table-cell align-middle">
                                                 ${user.balance}
                                             </td>
-                                            <td className="p-3 w-16 text-cyan-400">
+                                            <td className="p-3 w-16 text-cyan-400 align-middle">
                                                 -${user.request}
                                             </td>
-                                            <td className="p-3">
+                                            <td className="p-3 align-middle">
                                                 <div className="flex">
                                                     <button className='py-1 px-4 bg-yellow-600 hover:bg-yellow-500 text-white rounded-lg font-poppins' onClick={()=>{setUserId(user._id);setUserEmail(user.email);setShow(true);} }>APPROVE</button>
                                                 </div>
@@ -185,7 +185,7 @@ const Withdraw = () => {
                         <div className='h-[60vh] overflow-y-auto'>
                             {history && history.map((user, index) => (
                                 <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                    <td className="p-3 w-24 xs:w-60">
+                                    <td className="p-3 w-24 xs:w-60 align-middle">
                                         <div className="flex">
                                             {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
                                             <div className="ml-8 my-auto hidden xs:table-cell">
@@ -194,13 +194,13 @@ const Withdraw = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="p-3 w-60 hidden lg:table-cell">
+                                    <td className="p-3 w-60 hidden lg:table-cell align-middle">
                                         {user.email}
                                     </td>
-                                    <td className="p-3 w-16 xs:w-32 font-bold text-cyan-400">
+                                    <td className="p-3 w-16 xs:w-32 font-bold text-cyan-400 align-middle">
                                         ${user.balance}
                                     </td>
-                                    <td className="p-3 w-32">
+                                    <td className="p-3 w-32 align-middle">
                                         {user.date}
                                     </td>
                                 </tr>

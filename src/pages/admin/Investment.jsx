@@ -113,10 +113,10 @@ const Investment = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="p-3 w-60 hidden lg:table-cell">
+                                            <td className="p-3 w-60 hidden lg:table-cell align-middle">
                                                 {user.email}
                                             </td>
-                                            <td className="p-3 w-96 font-bold text-cyan-400">
+                                            <td className="p-3 w-96 font-bold text-cyan-400 align-middle">
                                                 {(user.progress<=25) &&
                                                     <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
                                                         <div style={{ width: `${user.progress}%`}} className='h-full bg-red-400'></div>
@@ -163,7 +163,7 @@ const Investment = () => {
                                 <div className=' overflow-y-auto h-[60vh]'>
                                     {history && history.map((user, index) => (
                                         <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                            <td className="p-3 w-24 xs:w-60">
+                                            <td className="p-3 w-24 xs:w-60 align-middle">
                                                 <div className="flex">
                                                     {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
                                                     <div className="ml-8 my-auto hidden xs:table-cell">
@@ -172,13 +172,13 @@ const Investment = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="p-3 w-60 hidden lg:table-cell">
+                                            <td className="p-3 w-60 hidden lg:table-cell align-middle">
                                                 {user.email}
                                             </td>
-                                            <td className="p-3 w-16 xs:w-32 font-bold text-cyan-400">
+                                            <td className="p-3 w-16 xs:w-32 font-bold text-cyan-400 align-middle">
                                                 ${user.balance}
                                             </td>
-                                            <td className="p-3 w-32">
+                                            <td className="p-3 w-32 align-middle">
                                                 {user.date}
                                             </td>
                                         </tr>
