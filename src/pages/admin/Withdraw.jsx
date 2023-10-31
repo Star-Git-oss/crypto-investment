@@ -119,43 +119,47 @@ const Withdraw = () => {
                     <div className="overflow-auto lg:overflow-visible ">
                         <table className="table text-gray-400 border-collapse space-y-6 mx-auto text-sm mt-16">
                             <thead className="bg-black text-slate-400">
-                                <tr>
-                                    <th className="p-3 w-60 text-center">User</th>
-                                    <th className="p-3 w-60 text-left hidden lg:block">Email</th>
-                                    <th className="p-3 text-left hidden xs:table-cell">Balance</th>
-                                    <th className="p-3 text-left hidden sm:table-cell">Request</th>
-                                    <th className="p-3 text-left">Action</th>
-                                </tr>
+                                <div>
+                                    <tr>
+                                        <th className="p-3 w-24 xs:w-60 text-center ">User</th>
+                                        <th className="p-3 w-60 text-left hidden lg:block">Email</th>
+                                        <th className="p-3 w-16 text-left hidden xs:table-cell">Balance</th>
+                                        <th className="p-3 w-16">Request</th>
+                                        <th className="p-3 text-left">Action</th>
+                                    </tr>
+                                </div>
                             </thead>
 
                             <tbody className="font-semibold font-sans text-md text-slate-300">
-                                {balance && balance.map((user, index) => (
-                                    <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                        <td className="p-3">
-                                            <div className="flex">
-                                                {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
-                                                <div className="ml-8 my-auto">
-                                                    <div>{user.username}</div>
-                                                    <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                <div className='h-[60vh] overflow-y-auto'>
+                                    {balance && balance.map((user, index) => (
+                                        <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
+                                            <td className="p-3 w-24 xs:w-60">
+                                                <div className="flex">
+                                                    {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
+                                                    <div className="ml-8 my-auto  hidden xs:table-cell">
+                                                        <div>{user.username}</div>
+                                                        <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="p-3 hidden lg:table-cell">
-                                            {user.email}
-                                        </td>
-                                        <td className="p-3 font-bold text-cyan-400 hidden xs:table-cell">
-                                            ${user.balance}
-                                        </td>
-                                        <td className="p-3 hidden sm:table-cell text-cyan-400">
-                                           - ${user.request}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex">
-                                                <button className='py-1 px-4 bg-yellow-600 hover:bg-yellow-500 text-white rounded-lg font-poppins' onClick={()=>{setUserId(user._id);setUserEmail(user.email);setShow(true);} }>APPROVE</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                            <td className="p-3 w-60 hidden lg:table-cell">
+                                                {user.email}
+                                            </td>
+                                            <td className="p-3 w-16 font-bold text-cyan-400 hidden xs:table-cell">
+                                                ${user.balance}
+                                            </td>
+                                            <td className="p-3 w-16 text-cyan-400">
+                                                -${user.request}
+                                            </td>
+                                            <td className="p-3">
+                                                <div className="flex">
+                                                    <button className='py-1 px-4 bg-yellow-600 hover:bg-yellow-500 text-white rounded-lg font-poppins' onClick={()=>{setUserId(user._id);setUserEmail(user.email);setShow(true);} }>APPROVE</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </div>
                             </tbody>
                         </table>
                     </div>
@@ -163,41 +167,45 @@ const Withdraw = () => {
             </div>
         </div>
 
-        <div className={`${isActive?'hidden':''}`}>
+        <div className={`${isActive?'hidden':''} `}>
             <div className='mx-auto mt-4'>
                 <table className="table text-gray-400 border-collapse space-y-6 mx-auto text-sm mt-16">
-                    <thead className="bg-black text-slate-400">
-                        <tr>
-                            <th className="p-3 w-60 text-center">User</th>
-                            <th className="p-3 w-60 text-left hidden lg:block">Email</th>
-                            <th className="p-3 text-left hidden xs:table-cell">Balance</th>
-                            <th className="p-3 text-left hidden sm:table-cell">Date</th>
-                        </tr>
+                    <thead className="bg-black text-slate-400 sticky top-0">
+                        <div>
+                            <tr>
+                                <th className="p-3 w-24 xs:w-60 text-center">User</th>
+                                <th className="p-3 w-60 text-left hidden lg:block">Email</th>
+                                <th className="p-3 w-16 xs:w-32 text-left">Balance</th>
+                                <th className="p-3 w-32 text-left ">Date</th>
+                            </tr>
+                        </div>
                     </thead>
 
                     <tbody className="font-semibold font-sans text-md text-slate-300">
-                        {history && history.map((user, index) => (
-                            <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                <td className="p-3">
-                                    <div className="flex">
-                                        {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
-                                        <div className="ml-8 my-auto">
-                                            <div>{user.username}</div>
-                                            <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                        <div className='h-[60vh] overflow-y-auto'>
+                            {history && history.map((user, index) => (
+                                <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
+                                    <td className="p-3 w-24 xs:w-60">
+                                        <div className="flex">
+                                            {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
+                                            <div className="ml-8 my-auto hidden xs:table-cell">
+                                                <div>{user.username}</div>
+                                                <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className="p-3 hidden lg:table-cell">
-                                    {user.email}
-                                </td>
-                                <td className="p-3 font-bold text-cyan-400 hidden xs:table-cell">
-                                    ${user.balance}
-                                </td>
-                                <td className="p-3 hidden sm:table-cell">
-                                    {user.date}
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
+                                    <td className="p-3 w-60 hidden lg:table-cell">
+                                        {user.email}
+                                    </td>
+                                    <td className="p-3 w-16 xs:w-32 font-bold text-cyan-400">
+                                        ${user.balance}
+                                    </td>
+                                    <td className="p-3 w-32">
+                                        {user.date}
+                                    </td>
+                                </tr>
+                            ))}
+                        </div>
                     </tbody>
                 </table>
             </div>

@@ -92,47 +92,50 @@ const Investment = () => {
                     <div className="overflow-auto lg:overflow-visible ">
                         <table className="table text-gray-400 border-collapse space-y-6 mx-auto text-sm mt-16">
                             <thead className="bg-black text-slate-400">
-                                <tr>
-                                    <th className="p-3 w-60 text-center">User</th>
-                                    <th className="p-3 w-60 text-left hidden lg:block">Email</th>
-                                    <th className="p-3 w-96 text-left hidden xs:table-cell">Progress</th>
-                                </tr>
-                            </thead>
-
-                            <tbody className="font-semibold font-sans text-md text-slate-300">
-                                {progressShow && progressShow.map((user, index) => (
-                                    <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                        <td className="p-3">
-                                            <div className="flex">
-                                                {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
-                                                <div className="ml-8 my-auto">
-                                                    <div>{user.username}</div>
-                                                    <div className="text-gray-300 block lg:hidden">{user.email}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="p-3 hidden lg:table-cell">
-                                            {user.email}
-                                        </td>
-                                        <td className="p-3 font-bold text-cyan-400 hidden xs:table-cell">
-                                            {(user.progress<=25) &&
-                                                <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
-                                                    <div style={{ width: `${user.progress}%`}} className='h-full bg-red-400'></div>
-                                                </div>
-                                            }
-                                             {(user.progress<=50) && (user.progress>25) &&
-                                                <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
-                                                    <div style={{ width: `${user.progress}%`}} className='h-full bg-yellow-400'></div>
-                                                </div>
-                                            }
-                                             {(user.progress>50) &&
-                                                <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
-                                                    <div style={{ width: `${user.progress}%`}} className='h-full bg-cyan-400'></div>
-                                                </div>
-                                            }
-                                        </td>
+                                <div>
+                                    <tr>
+                                        <th className="p-3 w-24 xs:w-60 text-center">User</th>
+                                        <th className="p-3 w-60 text-left hidden lg:block">Email</th>
+                                        <th className="p-3 w-96 text-left">Progress</th>
                                     </tr>
-                                ))}
+                                </div>
+                            </thead>
+                            <tbody className="font-semibold font-sans text-md text-slate-300">
+                                <div className=' h-[60vh] overflow-y-auto'>
+                                    {progressShow && progressShow.map((user, index) => (
+                                        <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
+                                            <td className="p-3 w-24 xs:w-60">
+                                                <div className="flex">
+                                                    {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
+                                                    <div className="ml-8 my-auto  hidden xs:table-cell">
+                                                        <div>{user.username}</div>
+                                                        <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="p-3 w-60 hidden lg:table-cell">
+                                                {user.email}
+                                            </td>
+                                            <td className="p-3 w-96 font-bold text-cyan-400">
+                                                {(user.progress<=25) &&
+                                                    <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
+                                                        <div style={{ width: `${user.progress}%`}} className='h-full bg-red-400'></div>
+                                                    </div>
+                                                }
+                                                {(user.progress<=50) && (user.progress>25) &&
+                                                    <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
+                                                        <div style={{ width: `${user.progress}%`}} className='h-full bg-yellow-400'></div>
+                                                    </div>
+                                                }
+                                                {(user.progress>50) &&
+                                                    <div className="w-full h-2 bg-slate-500 overflow-hidden"  title={`${user.progress}%`}>
+                                                        <div style={{ width: `${user.progress}%`}} className='h-full bg-cyan-400'></div>
+                                                    </div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </div>
                             </tbody>
                         </table>
                     </div>
@@ -146,37 +149,41 @@ const Investment = () => {
                     <div className="overflow-auto lg:overflow-visible ">
                         <table className="table text-gray-400 border-collapse space-y-6 mx-auto text-sm mt-16">
                             <thead className="bg-black text-slate-400">
-                                <tr>
-                                    <th className="p-3 w-60 text-center">User</th>
-                                    <th className="p-3 w-60 text-left hidden lg:block">Email</th>
-                                    <th className="p-3 text-left hidden xs:table-cell">Balance</th>
-                                    <th className="p-3 text-left hidden sm:table-cell">Date</th>
-                                </tr>
+                                <div>
+                                    <tr>
+                                        <th className="p-3 w-24 xs:w-60 text-center">User</th>
+                                        <th className="p-3 w-60 text-left hidden lg:block">Email</th>
+                                        <th className="p-3 w-16 xs:w-32 text-left">Balance</th>
+                                        <th className="p-3 w-32 text-left ">Date</th>
+                                    </tr>
+                                </div>
                             </thead>
 
                             <tbody className="font-semibold font-sans text-md text-slate-300">
-                                {history && history.map((user, index) => (
-                                    <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                        <td className="p-3">
-                                            <div className="flex">
-                                                {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
-                                                <div className="ml-8 my-auto">
-                                                    <div>{user.username}</div>
-                                                    <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                <div className=' overflow-y-auto h-[60vh]'>
+                                    {history && history.map((user, index) => (
+                                        <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
+                                            <td className="p-3 w-24 xs:w-60">
+                                                <div className="flex">
+                                                    {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
+                                                    <div className="ml-8 my-auto hidden xs:table-cell">
+                                                        <div>{user.username}</div>
+                                                        <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="p-3 hidden lg:table-cell">
-                                            {user.email}
-                                        </td>
-                                        <td className="p-3 font-bold text-cyan-400 hidden xs:table-cell">
-                                            ${user.balance}
-                                        </td>
-                                        <td className="p-3 hidden sm:table-cell">
-                                            {user.date}
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                            <td className="p-3 w-60 hidden lg:table-cell">
+                                                {user.email}
+                                            </td>
+                                            <td className="p-3 w-16 xs:w-32 font-bold text-cyan-400">
+                                                ${user.balance}
+                                            </td>
+                                            <td className="p-3 w-32">
+                                                {user.date}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </div>
                             </tbody>
                         </table>
                     </div>

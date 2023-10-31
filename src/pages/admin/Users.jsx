@@ -219,55 +219,59 @@ const Users = () => {
                 <div className="overflow-auto lg:overflow-visible ">
                     <table className="table text-gray-400 border-collapse space-y-6 mx-auto text-sm mt-16">
                         <thead className="bg-black text-slate-400">
-                            <tr>
-                                <th className="p-3 w-60 text-center">User</th>
-                                <th className="p-3 w-60 text-left hidden lg:block">Email</th>
-                                <th className="p-3 text-left hidden xs:table-cell">Balance</th>
-                                <th className="p-3 text-left hidden sm:table-cell">Cycle</th>
-                                <th className="p-3 text-left hidden md:table-cell">Status</th>
-                                <th className="p-3 text-left">Action</th>
-                            </tr>
+                            <div>
+                                <tr>
+                                    <th className="p-3 w-60 text-center">User</th>
+                                    <th className="p-3 w-60 text-left hidden lg:block">Email</th>
+                                    <th className="p-3 w-16 text-left hidden xs:table-cell">Balance</th>
+                                    <th className="p-3  text-left hidden sm:table-cell">Cycle</th>
+                                    <th className="p-3 w-28 text-left hidden md:table-cell">Status</th>
+                                    <th className="p-3 w-16 text-left">Action</th>
+                                </tr>
+                            </div>
                         </thead>
 
                         <tbody className="font-semibold font-sans text-md text-slate-300">
-                            {Object.values(users).map((user, index) => (
-                                <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
-                                    <td className="p-3">
-                                        <div className="flex">
-                                            {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
-                                            <div className="ml-8 my-auto">
-                                                <div>{user.username}</div>
-                                                <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                            <div className=" overflow-y-auto h-[60vh]">
+                                {Object.values(users).map((user, index) => (
+                                    <tr key={index} className="bg-gray-900 hover:bg-gray-700 cursor-default ">
+                                        <td className="p-3 w-60">
+                                            <div className="flex">
+                                                {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
+                                                <div className="ml-8 my-auto">
+                                                    <div>{user.username}</div>
+                                                    <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className="p-3 hidden lg:table-cell">
-                                        {user.email}
-                                    </td>
-                                    <td className="p-3 font-bold text-cyan-400 hidden xs:table-cell">
-                                        ${user.balance}
-                                    </td>
-                                    <td className="p-3 hidden sm:table-cell">
-                                        Cycle {user.cycle}
-                                    </td>
-                                    <td className="p-3 hidden md:table-cell">
-                                        {user.state==1 &&<span className="bg-slate-400 text-gray-50 rounded-md px-2">Inactivate</span>}
-                                        {user.state==2 &&<span className="bg-green-400 text-gray-50 rounded-md px-2">In progress</span>}
-                                        {user.state==3 &&<span className="bg-yellow-400 text-white rounded-md px-2">Rewarded</span>}
-                                        {user.state>3 &&<span className="bg-blue-400 text-gray-50 rounded-md px-2">Completed</span>}
-                                    </td>
-                                    <td className="p-3">
-                                        <div className="flex">
-                                            <a href="#" className="text-gray-400 hover:text-gray-100 mx-2" onClick={()=>handleEdit(user.email)}>
-                                                <IconEdit className='w-4 h-4'/>
-                                            </a>
-                                            <a href="#" className="text-red-400 hover:text-red-600  ml-2" onClick={() => {setId(user._id); setShow(true);}}>
-                                                <IconDelete className='w-4 h-4'/>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                                        </td>
+                                        <td className="p-3 w-60 hidden lg:table-cell">
+                                            {user.email}
+                                        </td>
+                                        <td className="p-3 w-16 font-bold text-cyan-400 hidden xs:table-cell">
+                                            ${user.balance}
+                                        </td>
+                                        <td className="p-3 hidden sm:table-cell">
+                                            Cycle {user.cycle}
+                                        </td>
+                                        <td className="p-3 w-28 hidden md:table-cell">
+                                            {user.state==1 &&<span className="bg-slate-400 text-gray-50 rounded-md px-2">Inactivate</span>}
+                                            {user.state==2 &&<span className="bg-green-400 text-gray-50 rounded-md px-2">In progress</span>}
+                                            {user.state==3 &&<span className="bg-yellow-400 text-white rounded-md px-2">Rewarded</span>}
+                                            {user.state>3 &&<span className="bg-blue-400 text-gray-50 rounded-md px-2">Completed</span>}
+                                        </td>
+                                        <td className="p-3 w-16">
+                                            <div className="flex">
+                                                <a href="#" className="text-gray-400 hover:text-gray-100 mx-2" onClick={()=>handleEdit(user.email)}>
+                                                    <IconEdit className='w-4 h-4'/>
+                                                </a>
+                                                <a href="#" className="text-red-400 hover:text-red-600  ml-2" onClick={() => {setId(user._id); setShow(true);}}>
+                                                    <IconDelete className='w-4 h-4'/>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </div>
                         </tbody>
                     </table>
                 </div>
