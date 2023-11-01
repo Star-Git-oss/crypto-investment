@@ -2,14 +2,12 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { SiWebmoney } from 'react-icons/si'
 import { BiMoneyWithdraw } from 'react-icons/bi'
-import { AiFillSetting } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { BiSolidDashboard } from 'react-icons/bi'
-import { VscSignOut } from 'react-icons/vsc'
 import { useSelector, useDispatch } from 'react-redux'
 
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
-import Avatar from '../../assets/avatar13.png'
+
 
 import { useLogoutMutation } from '../../slices/usersApiSlice';
 import { logout } from '../../slices/authSlice';
@@ -64,17 +62,7 @@ const Sidebar = () => {
               </li>
             </Link>
           ))}
-            {/* <li
-              className="flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer text-white hover:bg-gray-700"
-              onClick={logoutHandler}
-            >
-              <span className='text-2xl'><VscSignOut /></span>
-              <span
-                className='origin-left duration-300 hover:block'
-              >
-                Sign Out
-              </span>
-            </li> */}
+         
         </ul>
       </div>
       {/* Mobile Menu */}

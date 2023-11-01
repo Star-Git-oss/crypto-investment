@@ -1,8 +1,14 @@
-import styles from "../style";
-import { discount, robot } from "../assets";
+import styles from "../../style";
+import { discount, robot } from "../../assets";
 import GetStarted from "./GetStarted";
+import { Link } from "react-router-dom";
+import { useGlobalContext } from "../../context/SidebarContext";
+import { useSelector } from "react-redux";
 
 const Hero = () => {
+  const { openSidebar } = useGlobalContext();
+  const { userInfo }  = useSelector((state) => state.auth);
+
   return (
     <section id="home" className={`flex md:flex-row flex-col ${styles.paddingY}`}>
       <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
@@ -20,7 +26,13 @@ const Hero = () => {
             <span className="text-gradient">Investment, </span>{" "}
           </h1>
           <div className="ss:flex hidden mt-10 md:mr-4 mr-0">
-            <GetStarted />
+            {userInfo?
+            <Link to={'/admin'}>
+                <GetStarted />
+            </Link>:
+            <button onClick={openSidebar}>
+              <GetStarted />
+            </button>}
           </div>
         </div>
 

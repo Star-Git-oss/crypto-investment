@@ -1,5 +1,5 @@
 import styles from "../style";
-import { Billing, Business, CardDeal, Clients, CTA, Footer, Navbar, Stats, Testimonials, Hero } from "../components";
+import { Billing, Business, CardDeal, CTA, Footer, Navbar, Stats, Hero } from "../components/landing";
 import Login_Signup from "./Login-Signup";
 import useScrollToTop from "../components/useScrollToTop";
 import { ToastContainer } from "react-toastify";
@@ -20,7 +20,7 @@ const Landing = () => {
         </div>
       </div>
 
-      <div className={`mt-20 bg-primary ${styles.flexStart}`}>
+      <div className={`bg-primary ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Hero />
         </div>
@@ -31,9 +31,7 @@ const Landing = () => {
           <Stats />
           <Business />
           <Billing />
-          {/* <CardDeal /> */}
-          <Testimonials />
-          <Clients />
+          <CardDeal />
           <CTA />
           <Footer />
         </div>

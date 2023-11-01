@@ -22,14 +22,5 @@ const store = configureStore({
   devTools: true,
 });
 
-// const store = configureStore({
-//   reducer: {
-//     [apiSlice.reducerPath]: apiSlice.reducer,
-//     auth: authReducer,
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({serializableCheck:false}).concat(apiSlice.middleware),
-//   devTools: true,
-// });
 export const persistor = persistStore(store);
 export default store;
