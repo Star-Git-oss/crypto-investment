@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import mylogo from '../assets/logo1.png'
-import { close, menu } from "../assets";
-import { useGlobalContext } from "../context/SidebarContext";
-import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout, setCredentials, setNodes } from '../slices/authSlice';
+import mylogo from '../../assets/logo1.png'
+import { close, menu } from "../../assets";
+import { useGlobalContext } from "../../context/SidebarContext";
+import { useLogoutMutation } from '../../slices/usersApiSlice';
+import { logout, setCredentials, setNodes } from '../../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -12,8 +12,7 @@ const Navbar = () => {
 
   const [toggle, setToggle] = useState(false);
   const { userInfo }  = useSelector((state) => state.auth);
-  // const { nodes } = useSelector((state)=> state.auth);
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,11 +30,7 @@ const Navbar = () => {
         .then( res => {
             console.log(userInfo.state);
             console.log(res.data);
-            // if(userInfo.state != 0 || userInfo.state != 1)
-            // {
-            dispatch(setNodes({ ...res.data }));
-                // }    
-                
+            dispatch(setNodes({ ...res.data }));     
             console.log("Tree Updated Successfully!");
         })
         .catch(err => {

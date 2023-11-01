@@ -9,7 +9,7 @@ import { BiLogOut } from 'react-icons/bi'
 import { useSelector, useDispatch } from 'react-redux'
 
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
-import Avatar from '../../assets/avatar13.png'
+import Avatar from '../../assets/avatar12.png'
 
 import { useLogoutMutation } from '../../slices/usersApiSlice';
 import { logout } from '../../slices/authSlice';
@@ -38,8 +38,6 @@ const Sidebar = () => {
     { title: 'Cycle', path: '/cycle', src: <SiLevelsdotfyi /> },
     { title: 'Wallet', path: '/wallet', src: <FaWallet /> },
     { title: 'Profile', path: '/profile', src: <AiFillSetting /> },
-    // { title: 'Help Center', path: 'https://t.me/@Cloudwinnerscol', src: <BiLogoTelegram /> },
-    // { title: 'Logout', path: '/logout', src: <BiLogOut />, gap: 'true' },
   ]
 
   const help = () => {

@@ -1,7 +1,13 @@
-import styles from "../style";
+import styles from "../../style";
 import Button from "./Button";
+import { useGlobalContext } from "../../context/SidebarContext";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const CTA = () => (
+const CTA = () => {
+  const { openSidebar } = useGlobalContext();
+  const { userInfo }  = useSelector((state) => state.auth);
+  return(
   <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
     <div className="flex-1 flex flex-col">
       <h2 className={styles.heading2}>Let’s try our service now!</h2>
@@ -12,9 +18,16 @@ const CTA = () => (
     </div>
 
     <div className={`${styles.flexCenter} sm:ml-10 ml-0 sm:mt-0 mt-10`}>
-      <Button />
+      {userInfo?
+        <Link to={'/admin'}>
+            <Button />
+        </Link>:
+        <button onClick={openSidebar}>
+          <Button />
+        </button>}
     </div>
   </section>
-);
+  );
+  };
 
 export default CTA;
