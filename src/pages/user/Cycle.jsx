@@ -69,8 +69,8 @@ const Cycle = () => {
 
     },[userInfo.cycle, userInfo.state]);
 
-    const getStarted = (e) => {
-        e.preventDefault();
+    const getStarted = () => {
+        // e.preventDefault();
         dispatch(setPercentage(0));
         axios
         .put("/api/balance/start", {email})
@@ -84,8 +84,8 @@ const Cycle = () => {
         });
     }
 
-    const handleRewards = (e) => {
-        e.preventDefault();
+    const handleRewards = () => {
+        // e.preventDefault();
 
         axios
         .put("/api/balance/rewards", {email})

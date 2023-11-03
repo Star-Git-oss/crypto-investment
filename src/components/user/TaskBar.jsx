@@ -1,10 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import ConfirmDialog from "../ConfirmDialog";
+import { useState } from "react";
 
 const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here=""}) => {
 
-    return (
+    const [show, setShow] = useState(false);
+    const [showRewards, setShowRewards] = useState(false);
+    const accept = () => {
+        getStarted();
+    }
+
+    const acceptRewards = () => {
+        getRewards();
+    }
+     return (
     <div className='dark:text-white'>
+         { show &&
+            <ConfirmDialog accept={accept} show={show} handleShow={setShow} title='Start Cycle' content='Do you want to start this cycle?' confirm='Start' confirmColor='yellow'/> }
+          { showRewards &&
+            <ConfirmDialog accept={acceptRewards} show={showRewards} handleShow={setShowRewards} title='Get Rewarded' content='Do you want to get rewarded this cycle?' confirm='Get' confirmColor='yellow'/> }
         <div className="w-full bg-slate-700 rounded-xl my-10 hover:scale-[102%]">
             <div className="flex p-4">
                 <div className="my-auto">
@@ -21,7 +35,7 @@ const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here="
                    <button className='xs:w-52 w-36 h-20 my-auto mr-4 ml-auto bg-slate-400 rounded-xl xs:text-4xl text-3xl font-bold hover:cursor-not-allowed' >BUY</button>
                 )}
                 {state === 1 && (
-                <button className='xs:w-52 w-36 h-20 my-auto mr-4 ml-auto rounded-xl xs:text-4xl text-3xl font-bold bg-cyan-500 hover:text-white text-slate-200' onClick={getStarted}>
+                <button className='xs:w-52 w-36 h-20 my-auto mr-4 ml-auto rounded-xl xs:text-4xl text-3xl font-bold bg-cyan-500 hover:text-white text-slate-200' onClick={()=>{here=="dashboard"?getStarted():setShow(true);}}>
                     {here=="dashboard"?"START":"BUY"}
                 </button>
                 )}
@@ -29,7 +43,7 @@ const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here="
                 <button className='xs:w-48 w-40 h-20 my-auto mr-4 ml-auto rounded-xl xs:text-2xl text-xl font-bold text-green-400'>IN PROGRESS</button>
                 )}
                 {state === 3 && (
-                <button className='xs:w-52 w-36 h-20 my-auto mr-4 ml-auto rounded-xl xs:text-2xl text-xl font-bold bg-amber-500 hover:text-white text-slate-200' onClick={getRewards}>
+                <button className='xs:w-52 w-36 h-20 my-auto mr-4 ml-auto rounded-xl xs:text-2xl text-xl font-bold bg-amber-500 hover:text-white text-slate-200' onClick={()=>{here=="dashboard"?getRewards():setShowRewards(true);}}>
                     {cycle === 1 && 'Get +$250 Rewards'}
                     {cycle === 2 && 'Get +$275 Rewards'}
                     {cycle === 3 && 'Get +$300 Rewards'}
