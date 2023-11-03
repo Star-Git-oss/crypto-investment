@@ -20,6 +20,7 @@ const Dashboard = () => {
 
     const handleBar = () =>{
         navigate('/cycle');
+        // return;
     }
 
     useEffect(()=>{
