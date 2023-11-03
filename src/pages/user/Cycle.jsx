@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../slices/authSlice';
 import { useLogoutMutation } from '../../slices/usersApiSlice';
+import { setPercentage } from "../../slices/authSlice";
 
 import axios from "axios";
 const Cycle = () => {
@@ -70,7 +71,7 @@ const Cycle = () => {
 
     const getStarted = (e) => {
         e.preventDefault();
-
+        dispatch(setPercentage(0));
         axios
         .put("/api/balance/start", {email})
         .then( res => {
