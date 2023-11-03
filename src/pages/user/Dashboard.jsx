@@ -72,7 +72,7 @@ const Dashboard = () => {
                 .then(res => {
                 console.log('res', res.data);
                 dispatch(setCredentials({ ...res.data }));
-                console.log("Upstate Successfully!");
+                console.log("Upstate to 3 Successfully!");
                 })
                 .catch(err => {
                 console.log(err);

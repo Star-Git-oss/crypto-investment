@@ -124,7 +124,7 @@ const Profile = () => {
             return;
         }
 
-        if(image||(password&&newPassword)||(username!=userInfo.username)){
+        if(image||(password&&newPassword)||(username!=userInfo.username)||referral_link){
             try {
             const res = await updateProfile({
                 _id : userInfo._id,
