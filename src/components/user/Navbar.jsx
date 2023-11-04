@@ -7,6 +7,7 @@ import { HiBellAlert } from 'react-icons/hi2'
 import QRCode from 'react-qr-code'
 import 'react-toastify/dist/ReactToastify.css'
 import './navbar.css'
+// import {IconCurrencyDollar} from './IconCurrencyDollar'
 
 import { useSelector } from 'react-redux'
 
@@ -55,7 +56,7 @@ const Navbar = () => {
         </Link>
 
         <div className='flex mx-auto relative md:hidden'>
-          <input type='text' placeholder='Referral : ' className=' text-gray-900 text-sm rounded-lg w-[180px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
+          <input type='text' placeholder='Referral : ' className=' text-gray-900 text-sm rounded-lg w-[190px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
           <label className="absolute right-12 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text"> {myLink}</label>
           <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyLink}>
             <svg
@@ -162,6 +163,37 @@ const Navbar = () => {
           </div>
         )} */}
        
+      </div>
+      <div className='flex items-center mx-auto xs:hidden -mt-2 py-1 w-full'>
+
+        <div className='w-28 rounded-xl px-2 text-yellow-400 flex'>
+          <svg
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className='w-6 h-6 my-auto mr-4'
+          >
+            <path d="M10 20a10 10 0 110-20 10 10 0 010 20zm1-5h1a3 3 0 000-6H7.99a1 1 0 010-2H14V5h-3V3H9v2H8a3 3 0 100 6h4a1 1 0 110 2H6v2h3v2h2v-2z" />
+          </svg>
+          <div className='text-center'>
+            ${userInfo.balance}
+          </div>
+        </div>
+
+        <div className='flex mx-auto relative md:hidden'>
+          <input type='text' className=' text-gray-900 text-sm rounded-lg w-[190px] p-2.5 dark:bg-slate-700 dark:border-gray-600  dark:text-gray-300 focus:outline-none' readOnly></input>
+          <label className="absolute right-12 top-0 px-1 mt-2 bottom-0  rounded-r-lg text-slate-200 cursor-text">https://...{myLink}</label>
+          <button className="absolute right-2 top-0 px-1 bottom-0  rounded-r-lg text-slate-400 hover:text-white" onClick={copyURL}>
+            <svg
+              viewBox="0 0 24 24"
+              className='w-5 '
+              fill="currentColor"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1.001 1.001 0 013 21l.003-14c0-.552.45-1 1.007-1H7zM5.003 8L5 20h10V8H5.003zM9 6h8v10h2V4H9v2z" />
+            </svg>
+          </button>
+        </div>
+
       </div>
     </nav>
   )
