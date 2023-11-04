@@ -80,7 +80,7 @@ const Cycle = () => {
             toast.success("Your cycle started!", {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
         })
         .catch(err => {
-            toast.error(err.response.data.message, {autoClose: 5000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
+            toast.error(err.response.data.message, {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
         });
     }
 

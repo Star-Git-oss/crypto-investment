@@ -39,7 +39,7 @@ const Navbar = () => {
 
   const copyURL = async () => {
     try {
-      await navigator.clipboard.writeText("https://6c06-89-107-10-196.ngrok-free.app/user?invite="+myLink);
+      await navigator.clipboard.writeText("https://af5f-89-107-10-196.ngrok-free.app/user?invite="+myLink);
       toast.success('Copy success!', {autoClose: 1000, hideProgressBar: true, pauseOnHover: false, closeOnClick: true, theme: "dark",});
     } catch (error) {
       console.log("Copy failed:", error);

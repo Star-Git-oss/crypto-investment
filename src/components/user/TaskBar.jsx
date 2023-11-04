@@ -8,8 +8,8 @@ const TaskBar = ({cycle=1, state=1, percentage=0, getRewards, getStarted, here="
     const [showRewards, setShowRewards] = useState(false);
     const accept = () => {
         getStarted();
-    }
-
+    }   
+    let isFetchingRewards = false;
     const acceptRewards = () => {
         getRewards();
     }
