@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IconDelete from "./Icons/IconDelete";
 import IconEdit from "./Icons/IconEdit";
+import IconIconView from "./Icons/IconIconView";
 import Avatar00 from '../../assets/avatar12.png';
 import { Link } from "react-router-dom";
 import { HiX } from 'react-icons/hi';
@@ -23,6 +24,8 @@ import { logout } from '../../slices/authSlice';
 import { useLogoutMutation } from '../../slices/usersApiSlice';
 import axios from 'axios';
 
+import AdminNode from "../../components/user/AdminNode";
+
 
 const Users = () => {
 
@@ -31,8 +34,11 @@ const Users = () => {
     const dispatch = useDispatch();
     const { users } = useSelector((state)=>state.auth);
     const [isEdit, setEdit] = useState(false);
+    const [isView, setView] = useState(false);
     const [email, setEmail] = useState("");
     const [_id, setId] = useState("");
+    const [nodes, setNodes] = useState();
+    const [nodeInfo, setNodeInfo] = useState({});
 
     const accept = () => {
         console.log('accepted');
@@ -90,8 +96,40 @@ const Users = () => {
 
     }
 
+    const handleView = (nodeInfo) => {
+
+        setNodeInfo(nodeInfo);
+        const email = nodeInfo.email;
+        const cycle = nodeInfo.cycle;
+        const state = nodeInfo.state;
+
+        if(state == 2) {
+            axios
+            .post("/api/tree", {email, cycle})
+            .then( res => {
+                
+                setNodes({ ...res.data });
+                console.log(nodes);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+        
+        // fetchData();
+
+        setView(true);
+        // setEmail(email);
+        // console.log(email);
+
+    }
+
     const closeSidebar = () => {
         setEdit(false);
+    }
+
+    const closeView = () => {
+        setView(false);
     }
 
     const [userInfo, setUserInfo] = useState({});
@@ -240,11 +278,11 @@ const Users = () => {
                                                 {user.avatar?<img className="rounded-full h-12 w-12  object-cover" src={user.avatar} alt="unsplash image" />:<img className="rounded-full h-12 w-12  object-cover" src={Avatar00} alt="unsplash image" />}
                                                 <div className="ml-8 my-auto">
                                                     <div>{user.username}</div>
-                                                    <div className="text-gray-300 block lg:hidden">{user.email}</div>
+                                                    {/* <div className="text-gray-300 block lg:hidden">{user.email}</div> */}
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-3 w-60 hidden lg:table-cell align-middle">
+                                        <td className="p-3 w-60 hidden md:table-cell align-middle">
                                             {user.email}
                                         </td>
                                         <td className="p-3 w-16 font-bold text-cyan-400 hidden xs:table-cell align-middle">
@@ -261,6 +299,9 @@ const Users = () => {
                                         </td>
                                         <td className="p-3 w-16 align-middle">
                                             <div className="flex">
+                                                <a href="#" className="text-gray-400 hover:text-cyan-400 mx-2" onClick={()=>handleView(user)}>
+                                                    <IconIconView className='w-4 h-4'/>
+                                                </a>
                                                 <a href="#" className="text-gray-400 hover:text-gray-100 mx-2" onClick={()=>handleEdit(user.email)}>
                                                     <IconEdit className='w-4 h-4'/>
                                                 </a>
@@ -339,6 +380,81 @@ const Users = () => {
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>	
+            <div
+				className={`transition-all duration-500 fixed top-6 sm:top-24 ${
+					isView ? '' : 'hidden'
+				} left-1/2 transform -translate-x-1/2 z-10`}
+			>
+					
+                <div className={`flex justify-center ${isView?'xs:block h-[90vh]':''} `}>
+                    <div className='xs:w-full w-[340px] mx-auto bg-black p-8 overflow-auto rounded-2xl'>
+                        <a
+                            onClick={closeView}
+                            className="absolute top-2 right-2 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center active:bg-gray-300 focus:outline-none ml-6 hover:bg-gray-200 hover:text-gray-800"
+                        >
+                            <HiX className="w-5 h-5" />
+                        </a>
+                        <h2 className='text-3xl dark:text-white font-bold text-center mb-4'>{nodeInfo.username}'s Tree</h2>
+                        <hr className="mb-4"></hr>
+                        
+                        {
+                        nodes &&
+                        <div>
+                            <div className='w-full '>
+                                {
+                                nodeInfo.avatar?<AdminNode avatar={nodeInfo.avatar} username={nodeInfo.username} email={nodeInfo.email} active={true}/>:
+                                    <AdminNode avatar={Avatar00} username={nodeInfo.username} email={nodeInfo.email} active={true} />
+                                }
+                            </div>
+                            <div className=' grid grid-cols-2'>
+                                <div className=' col-span-1'>
+                                    { nodes.node1.email?
+                                        (nodes.node1.avatar?
+                                        <AdminNode avatar={nodes.node1.avatar} username={nodes.node1.username} email={nodes.node1.email} active={nodes.node1}/>:<AdminNode avatar={Avatar00} username={nodes.node1.username} email={nodes.node1.email} active={nodes.node1}/>
+                                        ):<AdminNode avatar={Avatar00} active={false} /> }
+                                </div>
+                                <div className=' col-span-1'>
+                                    { nodes.node2.email?
+                                        (nodes.node2.avatar?
+                                        <AdminNode avatar={nodes.node2.avatar} username={nodes.node2.username} email={nodes.node2.email} active={nodes.node2}/>:<AdminNode avatar={Avatar00} username={nodes.node2.username} email={nodes.node2.email} active={nodes.node2}/>
+                                        ):<AdminNode avatar={Avatar00} active={false} /> }
+                                </div>
+                            </div>
+                            <div className='flex'>
+                                <div className='w-1/2 grid grid-cols-2'>
+                                    <div className=' col-span-1 ml-4'>
+                                    { nodes.node11.email?
+                                        (nodes.node11.avatar?
+                                        <AdminNode avatar={nodes.node11.avatar} username={nodes.node11.username} email={nodes.node11.email} active={nodes.node11}/>:<AdminNode avatar={Avatar00} username={nodes.node11.username} email={nodes.node11.email} active={nodes.node11}/>
+                                        ):<AdminNode avatar={Avatar00} active={false} /> }
+                                    </div>
+                                    <div className=' col-span-1 mr-4'>
+                                    { nodes.node12.email?
+                                        (nodes.node12.avatar?
+                                        <AdminNode avatar={nodes.node12.avatar} username={nodes.node12.username} email={nodes.node12.email} active={nodes.node12}/>:<AdminNode avatar={Avatar00} username={nodes.node12.username} email={nodes.node12.email} active={nodes.node12}/>
+                                        ):<AdminNode avatar={Avatar00} active={false} /> }
+                                    </div>
+                                </div>
+                                <div className=' w-1/2 grid grid-cols-2'>
+                                    <div className=' col-span-1 ml-4'>
+                                    { nodes.node21.email?
+                                        (nodes.node21.avatar?
+                                        <AdminNode avatar={nodes.node21.avatar} username={nodes.node21.username} email={nodes.node21.email} active={nodes.node21}/>:<AdminNode avatar={Avatar00} username={nodes.node21.username} email={nodes.node21.email} active={nodes.node21}/>
+                                        ):<AdminNode avatar={Avatar00} active={false} /> }
+                                    </div>
+                                    <div className=' col-span-1 mr-4'>
+                                    { nodes.node22.email?
+                                        (nodes.node22.avatar?
+                                        <AdminNode avatar={nodes.node22.avatar} username={nodes.node22.username} email={nodes.node22.email} active={nodes.node22}/>:<AdminNode avatar={Avatar00} username={nodes.node22.username} email={nodes.node22.email} active={nodes.node22}/>
+                                        ):<AdminNode avatar={Avatar00} active={false} /> }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
                     </div>
                 </div>
             </div>	

@@ -60,29 +60,29 @@ const Dashboard = () => {
 
     useEffect(() => {
         if(userInfo.state == 2) {
-        axios
-        .post("/api/tree", {email, cycle})
-        .then( res => {
-            console.log(res.data);
-            dispatch(setNodes({ ...res.data }));
-            const fullTree = Object.values(res.data).every(node => Object.keys(node).length > 0);
-            console.log("Tree Updated Successfully!", fullTree);
-            if(fullTree) {
-                 axios
-                .post("/api/users/cycle", { email, cycle })
-                .then(res => {
-                console.log('res', res.data);
-                dispatch(setCredentials({ ...res.data }));
-                console.log("Upstate to 3 Successfully!");
-                })
-                .catch(err => {
+            axios
+            .post("/api/tree", {email, cycle})
+            .then( res => {
+                console.log(res.data);
+                dispatch(setNodes({ ...res.data }));
+                const fullTree = Object.values(res.data).every(node => Object.keys(node).length > 0);
+                console.log("Tree Updated Successfully!", fullTree);
+                if(fullTree) {
+                    axios
+                    .post("/api/users/cycle", { email, cycle })
+                    .then(res => {
+                    console.log('res', res.data);
+                    dispatch(setCredentials({ ...res.data }));
+                    console.log("Upstate to 3 Successfully!");
+                    })
+                    .catch(err => {
+                    console.log(err);
+                    });
+                }
+            })
+            .catch(err => {
                 console.log(err);
-                });
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+            });
         }
       }, []);
 
